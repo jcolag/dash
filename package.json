@@ -1,0 +1,19 @@
+{
+  "name": "Dash",
+  "version": "1.0.0",
+  "description": "Morning \"dashboard page\" generator",
+  "main": "dash.js",
+  "repository": "https://github.com/jcolag/dash",
+  "author": "John Colagioia",
+  "license": "AGPL-3.0",
+  "private": false,
+  "dependencies": {
+    "better-sqlite3": "^7.4.5",
+    "hebrew-date": "^1.0.6",
+    "opn": "^6.0.0",
+    "rrule": "^2.6.8",
+    "suncalc": "^1.8.0",
+    "xml2js": "^0.4.23",
+    "xmlhttprequest": "^1.8.0"
+  }
+}
