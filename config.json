@@ -1,0 +1,28 @@
+{
+  "birthday": "",
+  "blogInfo": {
+    "posts": "",
+    "title": ""
+  },
+  "calendar": {
+    "database": ""
+  },
+  "github": {
+    "date": "%5BY%20%5DM%20j",
+    "theme": "solarized-light",
+    "user": ""
+  },
+  "notes": {
+    "file": ""
+  },
+  "sleep": {
+    "days": 0,
+    "length": "",
+    "reaction": ""
+  },
+  "weather": {
+    "hours": 24,
+    "lat": 0,
+    "lon": 0
+  }
+}
