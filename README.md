@@ -29,3 +29,5 @@ In the future, I plan to add unread notifications from social media sites that m
 
 The default styling uses the [Solarized](https://ethanschoonover.com/solarized/) color palette and [OpenMoji](https://ethanschoonover.com/solarized/) font for any emoji display.
 
+You might ask why this just generates a static page, rather than running as a server.  It's a legitimate question, since it does make some sense to just keep updating data and serve up the latest versions, especially if there's a network outage.  However, I only look at this information once a day, when I wake up, and the benefits don't outweigh the added overhead to keep everything updated.  Or rather, that's how I feel about it now.  I might change my mind down the road.
+
