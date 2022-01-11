@@ -49,13 +49,21 @@ audio {
 }
 
 .sleep-bar {
-  background-color: #6c71c4b0;
+  background-color: #2aa198;
   float: left;
   width: 4px;
 }
 
-.temp-bar {
+.temp-bar-l {
   background-color: #cb4b16b0;
+  float: left;
+  font-family: 'OpenMoji Color';
+  font-size: small;
+  width: 15px;
+}
+
+.temp-bar-d {
+  background-color: #268bd2b0;
   float: left;
   font-family: 'OpenMoji Color';
   font-size: small;
