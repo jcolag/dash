@@ -193,7 +193,7 @@ function sleepInfo(sleep) {
   const bars = rows
     .map((r) => '<div class="sleep-bar" style="height: ' +
       `${(r.height - min)/2}px; margin-top: ${(max - r.height)/2}px; ` +
-      `opacity: ${1 - r.reaction * Math.pow(1.1, r.errors)};" ` +
+      `opacity: ${(1 - r.reaction + 0.33) * Math.pow(1.1, r.errors)};" ` +
       `title="${r.tip}\n${
         r.reaction.toString().slice(0,5)
       }s/char${r.titleE}" ` +
