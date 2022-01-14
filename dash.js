@@ -330,8 +330,10 @@ function weather(weatherCfg) {
     .parseString(xhr.responseText, (e, result) => {
       if (e) {
         console.log(e);
+        alert = '';
+      } else {
+        alert = result.feed.entry[0].summary;
       }
-      alert = result.feed.entry[0].summary;
     });
   return '<h2>Hourly Weather</h2>\n' +
     byTime
