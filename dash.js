@@ -345,7 +345,7 @@ function weather(weatherCfg) {
             hr.time <= sun.sunset.setDate(hr.time.getDate())
           ) ? 'l' : 'd'
         }" ` +
-        `style="height: ${hr.temperature}px; ` +
+        `style="height: ${hr.temperature - min + 50}px; ` +
         `margin-top: ${max - hr.temperature}px;"` +
         `title="${hr.time.toTimeString()}\n${hr.temperature}°F ` +
         `(${Number(hr.windChill)}°F)\n` +
