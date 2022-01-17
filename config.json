@@ -21,6 +21,7 @@
     "reaction": ""
   },
   "weather": {
+    "apiKey": "",
     "hours": 24,
     "lat": 0,
     "lon": 0

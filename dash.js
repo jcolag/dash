@@ -278,6 +278,8 @@ function voaNewscast() {
 function weather(weatherCfg) {
   const url = 'https://forecast.weather.gov/MapClick.php?' +
     `lat=${weatherCfg.lat}&lon=${weatherCfg.lon}&FcstType=digitalDWML`;
+  const owUrl = 'https://api.openweathermap.org/data/2.5/onecall?' +
+    `lat=${weatherCfg.lat}&lon=${weatherCfg.lon}&appid=${weatherCfg.apiKey}`;
   const alertUrl =
     `https://alerts.weather.gov/cap/wwaatmget.php?x=${weatherCfg.area}&y=0`;
   const sun = suncalc.getTimes(new Date(), weatherCfg.lat, weatherCfg.lon);
@@ -289,6 +291,23 @@ function weather(weatherCfg) {
   let min = 175;
   let max = -100;
   let alert;
+  let openWeather;
+  let rainTotal;
+  let snowTotal;
+
+  xhr.open('GET', owUrl, false);
+  xhr.send(null);
+  openWeather = JSON.parse(xhr.responseText);
+  rainTotal = openWeather
+    .hourly
+    .slice(0, 24)
+    .map((h) => h.rain ? h.rain['1h'] : 0)
+    .reduce((acc, a) => acc + a, 0);
+  snowTotal = openWeather
+    .hourly
+    .slice(0, 24)
+    .map((h) => h.snow ? h.snow['1h'] : 0)
+    .reduce((acc, a) => acc + a, 0);
 
   xhr.open('GET', url, false);
   xhr.send(null);
@@ -309,8 +328,16 @@ function weather(weatherCfg) {
         dewPoint: weather.temperature[0].value[index],
         humidity: weather.humidity[0].value[index],
         qpf: Number(weather['hourly-qpf'][0].value[index]),
+        rain: index < openWeather.hourly.length ?
+          openWeather.hourly[index].rain :
+          null,
+        snow: index < openWeather.hourly.length ?
+          openWeather.hourly[index].snow :
+          null,
         temperature: weather.temperature[2].value[index],
         time: new Date(time),
+        uvi: index < openWeather.hourly.length ?
+          openWeather.hourly[index].uvi : 0,
         windChill: weather.temperature[1].value[index],
         windDirection: weather.direction[0].value[index],
         windGust: Number(weather['wind-speed'][1].value[index]),
@@ -324,6 +351,7 @@ function weather(weatherCfg) {
         min = temp;
       }
     });
+
   xhr.open('GET', alertUrl, false);
   xhr.send(null);
   parser
@@ -332,7 +360,7 @@ function weather(weatherCfg) {
         console.log(e);
         alert = '';
       } else {
-        alert = result.feed.entry[0].summary;
+        alert = result.feed.entry.map((e) => e.summary).join('\n<br>\n');
       }
     });
   return '<h2>Hourly Weather</h2>\n' +
@@ -350,14 +378,21 @@ function weather(weatherCfg) {
         `title="${hr.time.toTimeString()}\n${hr.temperature}°F ` +
         `(${Number(hr.windChill)}°F)\n` +
         `${hr.windSustained}mph (${Number(hr.windGust)}) ` +
-        `${hr.windDirection}°\n` +
-        `${wxCondition(hr.condition)}" ` +
+        `${hr.windDirection}° ${dirArrow(hr.windDirection)}\n` +
+        `UV Index: ${hr.uvi}\n` +
+        `${wxCondition(hr.condition)}` +
+        (hr.rain || hr.snow ? '\n' : '') +
+        (hr.rain ? `💧 ${hr.rain['1h']}mm ` : '') +
+        (hr.snow ? `❄ ${hr.snow['1h']}mm` : '') +
+        '" ' +
         `onMouseEnter="let wx=document.getElementById('wx-cond');`+
         `wx.innerHTML=event.target.title.replace(/\\n/g, '<br>');"` +
         `onMouseLeave="document.getElementById('wx-cond').innerHTML=''">` +
        `${getWeatherEmoji(hr, sun)}</div>`
       )
       .join('\n') +
+    `\n<div>${Math.round(rainTotal/.254)/100}in 💧 &mdash; ` +
+    `${Math.round(snowTotal/.254)/100}in ❄</div>` +
     `\n<div id="wx-cond"></div>\n<div>${alert}</div>`;
 }
 
@@ -385,6 +420,28 @@ function wxCondition(condition) {
 
   const c = condition.value[0]['$'];
   return `${c['weather-type']} (${c.coverage})`;
+}
+
+function dirArrow(angle) {
+  if (angle < 22.5 || angle >= 337.5) {
+    return '⇑';
+  } else if (angle < 67.5) {
+    return '⇗';
+  } else if (angle < 112.5) {
+    return '⇒';
+  } else if (angle < 157.5) {
+    return '⇘';
+  } else if (angle < 202.5) {
+    return '⇓';
+  } else if (angle < 247.5) {
+    return '⇙';
+  } else if (angle < 292.5) {
+    return '⇐';
+  } else if (angle < 337.5) {
+    return '⇖';
+  } else {
+    return '?';
+  }
 }
 
 function pataphysicalCalendar(date) {
