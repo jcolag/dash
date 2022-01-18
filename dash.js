@@ -377,11 +377,12 @@ function weather(weatherCfg) {
         `margin-top: ${max - hr.temperature}px;"` +
         `title="${hr.time.toTimeString()}\n${hr.temperature}°F ` +
         `(${Number(hr.windChill)}°F)\n` +
-        `${hr.windSustained}mph (${Number(hr.windGust)}) ` +
+        `${hr.windSustained}mph ` +
+        (isNaN(hr.windGust) ? '' : `(${Number(hr.windGust)}) `) +
         `${hr.windDirection}° ${dirArrow(hr.windDirection)}\n` +
         `UV Index: ${hr.uvi}\n` +
-        `${wxCondition(hr.condition)}` +
-        (hr.rain || hr.snow ? '\n' : '') +
+        (wxCondition(hr.condition) ? `${wxCondition(hr.condition)}` : '') +
+        (hr.rain || hr.snow ? ' &mdash; ' : '') +
         (hr.rain ? `💧 ${hr.rain['1h']}mm ` : '') +
         (hr.snow ? `❄ ${hr.snow['1h']}mm` : '') +
         '" ' +
@@ -419,7 +420,13 @@ function wxCondition(condition) {
   }
 
   const c = condition.value[0]['$'];
-  return `${c['weather-type']} (${c.coverage})`;
+  let result = c['weather-type'];
+
+  if (c.coverage) {
+    result = `${result} (${c.coverage})`;
+  }
+
+  return result;
 }
 
 function dirArrow(angle) {
