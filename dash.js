@@ -301,12 +301,12 @@ function weather(weatherCfg) {
   rainTotal = openWeather
     .hourly
     .slice(0, 24)
-    .map((h) => h.rain ? h.rain['1h'] : 0)
+    .map((h) => (h.rain ? h.rain['1h'] : 0))
     .reduce((acc, a) => acc + a, 0);
   snowTotal = openWeather
     .hourly
     .slice(0, 24)
-    .map((h) => h.snow ? h.snow['1h'] : 0)
+    .map((h) => (h.snow ? h.snow['1h'] : 0))
     .reduce((acc, a) => acc + a, 0);
 
   xhr.open('GET', url, false);
@@ -392,8 +392,8 @@ function weather(weatherCfg) {
        `${getWeatherEmoji(hr, sun)}</div>`
       )
       .join('\n') +
-    `\n<div>${Math.round(rainTotal/.254)/100}in 💧 &mdash; ` +
-    `${Math.round(snowTotal/.254)/100}in ❄</div>` +
+    `\n<div>${Math.round(rainTotal/0.254)/100}in 💧 &mdash; ` +
+    `${Math.round(snowTotal/0.254)/100}in ❄</div>` +
     `\n<div id="wx-cond"></div>\n<div>${alert}</div>`;
 }
 
