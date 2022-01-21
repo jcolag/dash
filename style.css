@@ -33,7 +33,6 @@ audio {
 .panel {
   border: 1px solid #859900;
   border-radius: 1em;
-  border-radius: 1em;
   float: left;
   margin-left: 0.5vw;
   margin-right: 0.5vw;
@@ -54,12 +53,22 @@ audio {
   width: 4px;
 }
 
+.sleep-bar:hover {
+  border-left: 2px solid #657b83;
+  border-right: 2px solid #657b83;
+  opacity: 1.0 !important;
+}
+
 .temp-bar-l {
   background-color: #cb4b16b0;
   float: left;
   font-family: 'OpenMoji Color';
   font-size: small;
-  width: 15px;
+  width: 4%;
+}
+
+.temp-bar-l:hover {
+  opacity: 0.25;
 }
 
 .temp-bar-d {
@@ -67,6 +76,10 @@ audio {
   float: left;
   font-family: 'OpenMoji Color';
   font-size: small;
-  width: 15px;
+  width: 4%;
+}
+
+.temp-bar-d:hover {
+  opacity: 0.25;
 }
 
