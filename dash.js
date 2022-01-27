@@ -50,8 +50,10 @@ function dateInfo(birthday, wx) {
 
   items.push(today);
   items.push(
-    `🌞 ${sun.sunrise.getHours()}:${sun.sunrise.getMinutes()} ➡ ` +
-    `${sun.sunset.getHours()}:${sun.sunset.getMinutes()} 🌠`
+    `🌞 ${sun.sunrise.getHours()}:` +
+    `${('0' + sun.sunrise.getMinutes()).slice(-2)} ➡ ` +
+    `${sun.sunset.getHours()}:` +
+    `${('0' + sun.sunset.getMinutes()).slice(-2)} 🌠`
   );
   items.push(`${execSync('pom')} - ${execSync('moonth')}`);
   items.push(
