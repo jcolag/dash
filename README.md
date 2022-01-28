@@ -20,14 +20,15 @@ As I write this, it includes the following:
  * Notes that I may have written myself overnight, usually a comment if something woke me up in the middle of the night or I remember a dream
  * Voice of America's [latest newscast](https://www.voanews.com/a/6364216.html), a five-minute news update, set to play at 1&frac12;x speed
  * Any blog post or newsletter issue that might be ready for publication for the day, along with some quick testing
- * A visualization of the hourly weather for the upcoming day
+ * A visualization of the hourly weather for the upcoming day, combining data from the [National Weather Service](https://www.weather.gov/) and [Open Weather Map](https://openweathermap.org)
+   * The reason for using two weather services is that my experience has been that the National Weather Service has the most accurate hourly weather for my area, *but* Open Weather Map supplies additional data that I want, even though it tends to be slightly less accurate and less stable in the long term.
  * Events from my calendar
  * A visualization of sleep data for the last stretch of days
- * Information on my "streaks" publishing to GitHub
+ * Information on my "streaks" publishing changes to GitHub
 
 In the future, I plan to add unread notifications from social media sites that might be worth knowing about early, overnight voicemail, and maybe job board searches.
 
-The default styling uses the [Solarized](https://ethanschoonover.com/solarized/) color palette and [OpenMoji](https://ethanschoonover.com/solarized/) font for any emoji display.
+The default styling uses the [Solarized](https://ethanschoonover.com/solarized/) color palette and [OpenMoji](https://openmoji.org/) font for any emoji display.
 
-You might ask why this just generates a static page, rather than running as a server.  It's a legitimate question, since it does make some sense to just keep updating data and serve up the latest versions, especially if there's a network outage.  However, I only look at this information once a day, when I wake up, and the benefits don't outweigh the added overhead to keep everything updated.  Or rather, that's how I feel about it now.  I might change my mind down the road.
+You might ask why this script just generates a static page, rather than running as a server.  It's a legitimate question, since it does make some sense to just keep updating data and serve up the latest versions, especially if some service has a network outage.  However, I only look at this information once a day, when I wake up, and the benefits don't outweigh the added overhead to keep everything updated.  Or rather, that's how I feel about it now.  I might change my mind down the road.
 
