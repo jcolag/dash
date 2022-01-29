@@ -369,12 +369,7 @@ function weather(weatherCfg) {
     byTime
       .slice(0, weatherCfg.hours)
       .map((hr) =>
-        `<div class="temp-bar-${
-          (
-            hr.time >= sun.sunrise.setDate(hr.time.getDate()) &&
-            hr.time <= sun.sunset.setDate(hr.time.getDate())
-          ) ? 'l' : 'd'
-        }" ` +
+        `<div class="${sunClass(sun, hr.time, 'temp-bar')}" ` +
         `style="height: ${hr.temperature - min + 50}px; ` +
         `margin-top: ${max - hr.temperature}px;"` +
         `title="${hr.time.toTimeString()}\n${hr.temperature}°F ` +
@@ -429,6 +424,25 @@ function wxCondition(condition) {
   }
 
   return result;
+}
+
+function sunClass(sun, hr, prefix) {
+  const time = new Date(hr);
+  let type;
+
+  if (time.getHours() < sun.sunrise.getHours()) {
+    type = `${prefix}-d`;
+  } else if (time.getHours() < sun.sunrise.getHours() + 1) {
+    type = `${prefix}-r`;
+  } else if (time.getHours() < sun.sunset.getHours()) {
+    type = `${prefix}-l`;
+  } else if (time.getHours() < sun.sunset.getHours() + 1) {
+    type = `${prefix}-s`;
+  } else {
+    type = `${prefix}-d`;
+  }
+
+  return `${prefix} ${type}`;
 }
 
 function dirArrow(angle) {

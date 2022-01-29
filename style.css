@@ -59,27 +59,30 @@ audio {
   opacity: 1.0 !important;
 }
 
-.temp-bar-l {
-  background-color: #cb4b16b0;
+.temp-bar {
   float: left;
   font-family: 'OpenMoji Color';
   font-size: small;
   width: 4%;
 }
 
-.temp-bar-l:hover {
+.temp-bar:hover {
   opacity: 0.25;
+}
+
+.temp-bar-l {
+  background-color: #cb4b16b0;
 }
 
 .temp-bar-d {
   background-color: #268bd2b0;
-  float: left;
-  font-family: 'OpenMoji Color';
-  font-size: small;
-  width: 4%;
 }
 
-.temp-bar-d:hover {
-  opacity: 0.25;
+.temp-bar-r {
+  background: linear-gradient(0.25turn, #268bd2b0, #cb4b16b0);
+}
+
+.temp-bar-s {
+  background: linear-gradient(0.25turn, #cb4b16b0, #268bd2b0);
 }
 
