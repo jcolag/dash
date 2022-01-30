@@ -50,10 +50,8 @@ function dateInfo(birthday, wx) {
 
   items.push(today);
   items.push(
-    `🌞 ${sun.sunrise.getHours()}:` +
-    `${('0' + sun.sunrise.getMinutes()).slice(-2)} ➡ ` +
-    `${sun.sunset.getHours()}:` +
-    `${('0' + sun.sunset.getMinutes()).slice(-2)} 🌠`
+    `${timeFmt(sun.dawn)} 🌞 ${timeFmt(sun.sunrise)} ➡ ` +
+    `${timeFmt(sun.sunset)} 🌠 ${timeFmt(sun.dusk)}`
   );
   items.push(`${execSync('pom')} - ${execSync('moonth')}`);
   items.push(
@@ -76,6 +74,10 @@ function dateInfo(birthday, wx) {
   date += items.map((i) => `<li>${i}</li>\n`).join(' ');
   date += '</ul>';
   return date;
+}
+
+function timeFmt(when) {
+  return `${when.getHours()}:${('0' + when.getMinutes()).slice(-2)}`;
 }
 
 function notes(nightNotesFile) {
