@@ -296,6 +296,7 @@ function weather(weatherCfg) {
   let openWeather;
   let rainTotal;
   let snowTotal;
+  let qpfTotal;
 
   xhr.open('GET', owUrl, false);
   xhr.send(null);
@@ -353,6 +354,10 @@ function weather(weatherCfg) {
         min = temp;
       }
     });
+  qpfTotal = byTime
+    .slice(0,24)
+    .map((h) => h.qpf)
+    .reduce((acc, a) => acc + a, 0);
 
   xhr.open('GET', alertUrl, false);
   xhr.send(null);
@@ -382,6 +387,7 @@ function weather(weatherCfg) {
         (hr.rain || hr.snow ? ' &mdash; ' : '') +
         (hr.rain ? `💧 ${hr.rain['1h']}mm ` : '') +
         (hr.snow ? `❄ ${hr.snow['1h']}mm` : '') +
+        (isNaN(hr.qpf) ? '' : `&mdash; ${Number(hr.qpf)}in QPF\n`) +
         '" ' +
         `onMouseEnter="let wx=document.getElementById('wx-cond');`+
         `wx.innerHTML=event.target.title.replace(/\\n/g, '<br>');"` +
@@ -390,7 +396,8 @@ function weather(weatherCfg) {
       )
       .join('\n') +
     `\n<div>${Math.round(rainTotal/0.254)/100}in 💧 &mdash; ` +
-    `${Math.round(snowTotal/0.254)/100}in ❄</div>` +
+    `${Math.round(snowTotal/0.254)/100}in ❄` +
+    ` &mdash; ${Math.round(qpfTotal*1000)/1000}in QPF</div>` +
     `\n<div id="wx-cond"></div>\n<div>${alert}</div>`;
 }
 
