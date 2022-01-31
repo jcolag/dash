@@ -21,7 +21,8 @@ As I write this, it includes the following:
  * Voice of America's [latest newscast](https://www.voanews.com/a/6364216.html), a five-minute news update, set to play at 1&frac12;x speed
  * Any blog post or newsletter issue that might be ready for publication for the day, along with some quick testing
  * A visualization of the hourly weather for the upcoming day, combining data from the [National Weather Service](https://www.weather.gov/) and [Open Weather Map](https://openweathermap.org)
-   * The reason for using two weather services is that my experience has been that the National Weather Service has the most accurate hourly weather for my area, *but* Open Weather Map supplies additional data that I want, even though it tends to be slightly less accurate and less stable in the long term.
+   * The reason for using two weather services is that my experience has been that the National Weather Service has the most accurate hourly weather for my area, *but* Open Weather Map supplies additional data that I want, even though it tends to be slightly less accurate on occasion and less stable in the long term.
+   * It's probably worth mentioning that the precipitation numbers appear to all be variations of the [quantitative precipitation forecast (QPF)](https://en.wikipedia.org/wiki/Quantitative_precipitation_forecast) value, the "expected amount of melted precipitation accumulated over a specified time period."  In other words, when rain is expected, the QPF should be equivalent to the precipitation over the relevant time.  If snow is expected, though, the actual totals will depend on how wet and packed the snow is.
  * Events from my calendar
  * A visualization of sleep data for the last stretch of days
  * Information on my "streaks" publishing changes to GitHub
