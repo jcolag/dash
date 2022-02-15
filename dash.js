@@ -558,6 +558,8 @@ function weatherTypeEmoji(condition) {
       return '❄<br>';
     case 'rain':
       return '💧<br>';
+    case 'freezing rain':
+      return '🧊<br>';
     default:
       if (Array.isArray(condition)) {
         return weatherTypeEmoji(condition[0]['$']);
