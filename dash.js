@@ -3,6 +3,7 @@ const { execSync } = require("child_process");
 const fs = require('fs');
 const hebrewDate = require('hebrew-date');
 const opn = require('opn');
+const os = require('os');
 const path = require('path');
 const { rrulestr } = require('rrule');
 const suncalc = require('suncalc');
@@ -411,9 +412,10 @@ function openDatabase(database) {
     db.prepare('SELECT COUNT(*) FROM cal_alarms');
   } catch(_) {
     const base = path.basename(database);
+    const temp = path.join(os.tmpdir(), base);
 
-    fs.copyFileSync(database, base);
-    db = new sqlite3(base, { verbose: null });
+    fs.copyFileSync(database, temp);
+    db = new sqlite3(temp, { verbose: null });
     db.prepare('SELECT COUNT(*) FROM cal_alarms');
   }
   
