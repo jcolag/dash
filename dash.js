@@ -1,4 +1,5 @@
 const sqlite3 = require('better-sqlite3');
+const Holidays = require('date-holidays');
 const { execSync } = require("child_process");
 const fs = require('fs');
 const hebrewDate = require('hebrew-date');
@@ -13,6 +14,7 @@ const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 const config = JSON.parse(fs.readFileSync('config.json'));
 const elements = [
   dateInfo(config.birthday, config.weather),
+  holidayList(),
   notes(config.notes.file),
   voaNewscast(),
   blogInfo(config.blogInfo),
@@ -47,6 +49,7 @@ function dateInfo(birthday, wx) {
   const dateHebrew = hebrewDate(new Date());
   const julianDay = Math.floor(Date.now() / 86400000 + 2440587.5);
   const bday = new Date(Date.parse(birthday));
+  const holidays = [];
   let date = '<h2>Today Is...</h2>\n<ul>';
 
   items.push(today);
@@ -75,6 +78,76 @@ function dateInfo(birthday, wx) {
   date += items.map((i) => `<li>${i}</li>\n`).join(' ');
   date += '</ul>';
   return date;
+}
+
+function holidayList() {
+  const hd = new Holidays();
+  const now = new Date();
+  let holidays = [];
+
+  Object.keys(hd.getCountries()).forEach((cc) => {
+    hd.init(cc);
+    hd.setLanguages('en');
+    let hc = hd.isHoliday(now);
+    if (hc) {
+      hc.forEach((h) => {
+        h.country = cc;
+        holidays.push(h)
+      });
+    }
+  });
+
+  if (holidays.length === 0) {
+    return '';
+  }
+
+  const byName = groupBy(holidays, 'name');
+
+  holidays = Object.keys(byName).map((name) => {
+    const days = byName[name];
+    const type = days
+      .map((d) =>
+        `<span title="${d.country} ${d.type}">` +
+          `${countryToFlag(d.country)}</span>`
+        )
+      .join(' ');
+
+    return `${name} (${type})`;
+  });
+  return '<h2>Today&rsquo;s Holidays</h2><ul>' +
+    holidays
+      .map((h) =>
+        '<li>' +
+        (h.indexOf('🇺🇸') > 0 ? '<b>' : '') +
+        `${h}` +
+        (h.indexOf('🇺🇸') > 0 ? '</b>' : '') +
+        '</li>'
+      )
+      .join('') +
+    '</ul>';
+}
+
+function groupBy(xs, key) {
+  return xs.reduce((rv, x) => {
+    (rv[x[key]] = rv[x[key]] || []).push(x);
+    return rv;
+  }, {});
+}
+
+function countryToFlag(country) {
+  if (!country) {
+    // No country, no flag...
+    return country;
+  }
+
+  const cc = country.toUpperCase();
+  return Array.from(cc).map(letterToEmoji).join('');
+}
+
+function letterToEmoji(l) {
+  // The letter emoji code-points are a fixed distance from the letter
+  // code-points themselves
+  return String.fromCodePoint(l.toLowerCase().charCodeAt() + 127365);
 }
 
 function timeFmt(when) {
