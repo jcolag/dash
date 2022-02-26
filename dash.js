@@ -531,21 +531,21 @@ function sunClass(sun, hr, prefix) {
 
 function dirArrow(angle) {
   if (angle < 22.5 || angle >= 337.5) {
-    return '⇑';
+    return '⬆️';
   } else if (angle < 67.5) {
-    return '⇖';
+    return '↖️';
   } else if (angle < 112.5) {
-    return '⇐';
+    return '⬅️';
   } else if (angle < 157.5) {
-    return '⇙';
+    return '↙️';
   } else if (angle < 202.5) {
-    return '⇓';
+    return '⬇️';
   } else if (angle < 247.5) {
-    return '⇘';
+    return '↘️';
   } else if (angle < 292.5) {
-    return '⇒';
+    return '➡️';
   } else if (angle < 337.5) {
-    return '⇗';
+    return '↗️';
   } else {
     return '?';
   }
