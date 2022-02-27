@@ -55,7 +55,12 @@ function dateInfo(birthday, wx) {
   items.push(today);
   items.push(
     `${timeFmt(sun.dawn)} 🌞 ${timeFmt(sun.sunrise)} ➡ ` +
+    `${timeFmt(sun.solarNoon)}  ➡ ` +
     `${timeFmt(sun.sunset)} 🌠 ${timeFmt(sun.dusk)}`
+  );
+  items.push(
+    `Golden hour until ${timeFmt(sun.goldenHourEnd)}, ` +
+    `after ${timeFmt(sun.goldenHour)}`
   );
   items.push(`${execSync('pom')} - ${execSync('moonth')}`);
   items.push(
