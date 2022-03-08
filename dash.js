@@ -44,7 +44,15 @@ return;
 function dateInfo(birthday, wx) {
   const now = new Date();
   const items = [];
-  const today = Date().toString().split(' ').slice(0,4).join(' ');
+  const today = new Date().toLocaleDateString(
+    'en-us',
+    {
+      weekday:"long",
+      year:"numeric",
+      month:"long",
+      day:"numeric"
+    }
+  );
   const sun = suncalc.getTimes(new Date(), wx.lat, wx.lon);
   const dateHebrew = hebrewDate(new Date());
   const julianDay = Math.floor(Date.now() / 86400000 + 2440587.5);
