@@ -199,17 +199,22 @@ function blogInfo(blog) {
       .toString()
       .split('\n');
     const dateline = lines.filter((l) => l.indexOf('date: ') === 0)[0];
-    const title = lines
+    let title = lines
       .filter((l) => l.indexOf('title: ') === 0)[0];
 
     if (!dateline) {
       return;
     }
 
+    title = title
+      .split(':')
+      .slice(1)
+      .join(':')
+      .trim();
     if (dateline.indexOf(datesig) > 0) {
       const time = dateline.split(' ')[2];
 
-      files.push(`${f.name} (<i>${title.split(':')[1].trim()}</i>) ` +
+      files.push(`${f.name} (<i>${title}</i>) ` +
         `&mdash; ${time.split(':').slice(0,2).join(':')}`);
     }
 
