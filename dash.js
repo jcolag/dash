@@ -216,7 +216,6 @@ function blogInfo(blog) {
 
       files.push(`${f.name} (<i>${title}</i>) ` +
         `&mdash; ${time.split(':').slice(0,2).join(':')}`);
-    }
 
     if (dateline.indexOf(datesig) > 0 && f.name.indexOf(datesig) < 0) {
       files.push(`${f.name} has a bad date line`);
@@ -229,6 +228,7 @@ function blogInfo(blog) {
       files.push(
         `<i>${title}</i> might want to release earlier in the minute.`
       );
+      }
     }
   });
 
