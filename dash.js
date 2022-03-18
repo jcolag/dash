@@ -213,21 +213,20 @@ function blogInfo(blog) {
       .trim();
     if (dateline.indexOf(datesig) > 0) {
       const time = dateline.split(' ')[2];
+      const stamp = new Date(dateline.split(':').slice(1).join(':').trim());
 
       files.push(`${f.name} (<i>${title}</i>) ` +
         `&mdash; ${time.split(':').slice(0,2).join(':')}`);
 
-    if (dateline.indexOf(datesig) > 0 && f.name.indexOf(datesig) < 0) {
-      files.push(`${f.name} has a bad date line`);
-    }
+      if (f.name.indexOf(datesig) < 0) {
+        files.push(`${f.name} has a bad date line`);
+      }
 
-    if (
-      dateline.indexOf(datesig) > 0 &&
-      Number(dateline.split(':')[3].slice(0,2)
-    ) > 20) {
-      files.push(
-        `<i>${title}</i> might want to release earlier in the minute.`
-      );
+      if (stamp.getSeconds() > 20) {
+        files.push(
+          `<i>${title}</i> might want to release earlier in the minute.`
+        );
+      }
       }
     }
   });
