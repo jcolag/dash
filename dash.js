@@ -214,6 +214,12 @@ function blogInfo(blog) {
     if (dateline.indexOf(datesig) > 0) {
       const time = dateline.split(' ')[2];
       const stamp = new Date(dateline.split(':').slice(1).join(':').trim());
+      const postTz = dateline.split(':').slice(-1).join(':').slice(2);
+      const tz = (stamp.getTimezoneOffset() > 0 ? '-' : '') +
+        (
+          '0' + Math.abs(stamp.getTimezoneOffset() / 60).toString()
+        ).slice(-2) +
+        ('0' + (stamp.getTimezoneOffset() % 60).toString()).slice(-2);
 
       files.push(`${f.name} (<i>${title}</i>) ` +
         `&mdash; ${time.split(':').slice(0,2).join(':')}`);
@@ -227,6 +233,11 @@ function blogInfo(blog) {
           `<i>${title}</i> might want to release earlier in the minute.`
         );
       }
+
+      if (postTz !== tz) {
+        files.push(
+          `<i>${title}</i> needs a timezone of <tt>${tz}</tt>.`
+        );
       }
     }
   });
