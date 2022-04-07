@@ -29,7 +29,7 @@ As I write this, it includes the following:
 
 In the future, I plan to add unread notifications from social media sites that might be worth knowing about early, overnight voicemail, and maybe job board searches.
 
-The default styling uses the [Solarized](https://ethanschoonover.com/solarized/) color palette and [OpenMoji](https://openmoji.org/) font for any emoji display.
+The default styling uses the [Solarized](https://ethanschoonover.com/solarized/) color palette and [OpenMoji](https://openmoji.org/) font for any emoji display.  I adapted the background image from [White Leather Pattern](https://www.toptal.com/designers/subtlepatterns/white-leather-2/) by [Atle Mo](http://atlemo.com/), as [archived](https://github.com/atlemo/SubtlePatterns) from a time when the owners made the backgrounds available under the terms of the [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) license.
 
 You might ask why this script just generates a static page, rather than running as a server.  It's a legitimate question, since it does make some sense to just keep updating data and serve up the latest versions, especially if some service has a network outage.  However, I only look at this information once a day, when I wake up, and the benefits don't outweigh the added overhead to keep everything updated.  Or rather, that's how I feel about it now.  I might change my mind down the road.
 
