@@ -88,6 +88,7 @@ function dateInfo(birthday, wx) {
     items.push('<b>Happy Birthday! 🎂</b>');
   }
 
+  items.push('System ' + execSync('uptime --pretty').toString());
   date += items.map((i) => `<li>${i}</li>\n`).join(' ');
   date += '</ul>';
   return date;
