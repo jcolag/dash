@@ -169,7 +169,6 @@ function timeFmt(when) {
 }
 
 function notes(nightNotesFile) {
-
   if (fs.existsSync(nightNotesFile)) {
     const nightNotes = fs.readFileSync(nightNotesFile);
 
