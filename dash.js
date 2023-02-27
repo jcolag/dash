@@ -1,13 +1,17 @@
 const sqlite3 = require('better-sqlite3');
 const Holidays = require('date-holidays');
+const ethio = require('ethiopian-calendar-date-converter');
 const { execSync } = require("child_process");
+const floreal = require('floreal').Date;
 const fs = require('fs');
 const hebrewDate = require('hebrew-date');
+const hijri = require('hijri-converter');
 const opn = require('opn');
 const os = require('os');
 const path = require('path');
 const { rrulestr } = require('rrule');
 const suncalc = require('suncalc');
+const tibet = require('tibetan-date-calculator');
 const xml2js = require('xml2js');
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
@@ -55,6 +59,7 @@ function dateInfo(birthday, wx) {
   );
   const sun = suncalc.getTimes(new Date(), wx.lat, wx.lon);
   const dateHebrew = hebrewDate(new Date());
+  const dateHijri = hijri.toHijri(now.getFullYear(), now.getMonth(), now.getDate());
   const julianDay = Math.floor(Date.now() / 86400000 + 2440587.5);
   const bday = new Date(Date.parse(birthday));
   const holidays = [];
@@ -74,6 +79,12 @@ function dateInfo(birthday, wx) {
   items.push(
     `✡ ${dateHebrew.month_name} ${dateHebrew.date}, ${dateHebrew.year}`
   );
+  items.push(
+    `☪ ${dateHijri.hy}-${islamicMonth(dateHijri.hm)}-${dateHijri.hd}`
+  );
+  items.push(`🇪🇹 ${ethio.EthDateTime.now().toDateWithDayString()}`);
+  items.push(`🇫🇷 ${new floreal().toFullDateString()}`);
+  items.push(`🏴󠁣󠁮󠀵󠀴󠁿 ${new tibet.TibetanDate().toString()}`);
   items.push(`${julianDay} Julian`);
   items.push(`${Date.now() / 1000} UNIX`);
   items.push(execSync('ccal --date').toString());
@@ -92,6 +103,25 @@ function dateInfo(birthday, wx) {
   date += items.map((i) => `<li>${i}</li>\n`).join(' ');
   date += '</ul>';
   return date;
+}
+
+function islamicMonth(month) {
+  const months = [
+    'Muharram',
+    'Safar',
+    'Rabi`al-Awwal',
+    'Rabi`ath-Thani',
+    'Jumada l-Ula',
+    'Jumada t-Tania',
+    'Rajab',
+    'Sha`ban',
+    'Ramadan',
+    'Shawwal',
+    'Dhu l-Qa`da',
+    'Dhu l-Hijja',
+  ];
+
+  return months[month];
 }
 
 function holidayList() {

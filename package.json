@@ -10,10 +10,14 @@
   "dependencies": {
     "better-sqlite3": "^7.4.5",
     "date-holidays": "^3.14.2",
+    "ethiopian-calendar-date-converter": "^2.0.2",
+    "floreal": "^1.1.1",
     "hebrew-date": "^1.0.6",
+    "hijri-converter": "^1.1.1",
     "opn": "^6.0.0",
     "rrule": "^2.6.8",
     "suncalc": "^1.8.0",
+    "tibetan-date-calculator": "^1.2.1",
     "xml2js": "^0.4.23",
     "xmlhttprequest": "^1.8.0"
   },
