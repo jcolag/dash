@@ -16,6 +16,7 @@
     "hijri-converter": "^1.1.1",
     "opn": "^6.0.0",
     "rrule": "^2.6.8",
+    "sentiment": "^5.0.2",
     "suncalc": "^1.8.0",
     "tibetan-date-calculator": "^1.2.1",
     "xml2js": "^0.4.23",

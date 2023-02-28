@@ -10,6 +10,7 @@ const opn = require('opn');
 const os = require('os');
 const path = require('path');
 const { rrulestr } = require('rrule');
+const sentiment = require('sentiment');
 const suncalc = require('suncalc');
 const tibet = require('tibetan-date-calculator');
 const xml2js = require('xml2js');
@@ -25,6 +26,7 @@ const elements = [
   weather(config.weather),
   calendarInfo(config.calendar),
   sleepInfo(config.sleep),
+  journalInfo(config.journal),
 ];
 
 const head = '<!DOCTYPE html><html lang="en"><head>' +
@@ -341,6 +343,79 @@ function sleepInfo(sleep) {
 
   return `<h2>Sleep, Last ${sleep.days} Days</h2>\n` + bars +
     '<div id="sleep"></div>';
+}
+
+function formatDate(date) {
+  const y = date.getFullYear();
+  const m = ('00' + (date.getMonth() + 1)).slice(-2);
+  const d = ('00' + (date.getDate())).slice(-2);
+
+  return `${y}-${m}-${d}`;
+}
+
+function journalInfo(journal) {
+  const sent = new sentiment();
+  const dates = [];
+  const entries = [];
+  let day = new Date();
+  let max = -1000;
+  let min = 10000;
+  let words = 0;
+
+  for (let i = 0; i < journal.days; i++) {
+    day.setDate(day.getDate() - 1);
+    dates.push(`${formatDate(day)}.md`);
+  }
+
+  dates.reverse().forEach((d) => {
+    const file = path.join(journal.location, d);
+    let j = null;
+    let s = { comparative: null, score: null };
+
+    try {
+      j = fs.readFileSync(file, 'utf-8');
+      s = sent.analyze(j);
+    } catch(e) {
+    }
+
+    if (j === null) {
+      return;
+    }
+
+    const w = j.trim().split(/\s+/).length;
+
+    entries.push({
+      comparative: s.comparative,
+      file: d,
+      sentiment: s.score,
+      words: w,
+    });
+
+    if (s.comparative > max) {
+      max = s.comparative;
+    }
+
+    if (s.comparative < min) {
+      min = s.comparative;
+    }
+
+    if (w > words) {
+      words = w;
+    }
+  });
+
+  const bars = entries
+    .map((r) => '<div class="sleep-bar" style="height: ' +
+      `${(r.comparative-min)*200+10}px; margin-top: ${(max-r.comparative)*200}px; ` +
+      `title="${r.file}\n${r.sentiment}/${r.words}" ` +
+      `onmouseenter="let wx=document.getElementById('journal');`+
+      `wx.innerHTML=event.target.title.replace(/\\n/g, '<br>')" ` +
+      `onmouseleave="document.getElementById('journal').innerHTML=''">` +
+      '</div>')
+    .join('\n')
+
+  return `<h2>Journal, Last ${journal.days} Days</h2>\n` + bars +
+    '<div id="journal"></div>';
 }
 
 function calendarInfo(cal) {
