@@ -407,6 +407,7 @@ function journalInfo(journal) {
   const bars = entries
     .map((r) => '<div class="sleep-bar" style="height: ' +
       `${(r.comparative-min)*200+10}px; margin-top: ${(max-r.comparative)*200}px; ` +
+      `opacity: ${0.5+r.words/words/2};" ` +
       `title="${r.file}\n${r.sentiment}/${r.words}" ` +
       `onmouseenter="let wx=document.getElementById('journal');`+
       `wx.innerHTML=event.target.title.replace(/\\n/g, '<br>')" ` +
