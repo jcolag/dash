@@ -51,6 +51,7 @@ audio {
 .journal-bar {
   background-color: #cb4b16;
   float: left;
+  margin-bottom: 1px;
   width: 4px;
 }
 
@@ -63,6 +64,7 @@ audio {
 .sleep-bar {
   background-color: #2aa198;
   float: left;
+  margin-bottom: 1px;
   width: 4px;
 }
 
