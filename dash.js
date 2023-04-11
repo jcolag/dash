@@ -329,7 +329,7 @@ function sleepInfo(sleep) {
 
   min -= 25;
   const bars = rows
-    .map((r) => '<div class="sleep-bar" style="height: ' +
+    .map((r, i) => `<div class="sleep-bar day-${i}" style="height: ` +
       `${(r.height - min)/2}px; margin-top: ${(max - r.height)/2}px; ` +
       `opacity: ${(1 - r.reaction + 0.33) * Math.pow(1.1, r.errors)};" ` +
       `title="${r.tip}\n${
@@ -405,7 +405,7 @@ function journalInfo(journal) {
   });
 
   const bars = entries
-    .map((r) => '<div class="journal-bar" style="height: ' +
+    .map((r, i) => `<div class="journal-bar day-${i}" style="height: ` +
       `${(r.comparative-min)*200+10}px; margin-top: ${(max-r.comparative)*200}px; ` +
       `opacity: ${0.5+r.words/words/2};" ` +
       `title="${r.file}\n${r.sentiment}/${r.words}" ` +
