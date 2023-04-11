@@ -19,7 +19,7 @@
     "sentiment": "^5.0.2",
     "suncalc": "^1.8.0",
     "tibetan-date-calculator": "^1.2.1",
-    "xml2js": "^0.4.23",
+    "xml2js": "^0.5.0",
     "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
