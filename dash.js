@@ -34,7 +34,8 @@ const head = '<!DOCTYPE html><html lang="en"><head>' +
   'Morning Dashboard</title><link rel="stylesheet" href="style.css">' +
   '<script type="text/javascript">window.addEventListener("load", (e) => {' +
   'document.getElementById("voa").playbackRate=1.5;});</script>' +
-  '</head><body>';
+  '<script src="interactive.js" type="text/javascript">' +
+  '</script></head><body>';
 const html = elements
   .filter((e) => e)
   .map((e) => `<div class="panel">\n${e}\n</div>\n`)
