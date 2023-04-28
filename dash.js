@@ -24,6 +24,7 @@ const elements = [
   voaNewscast(),
   blogInfo(config.blogInfo),
   weather(config.weather),
+  airQuality(config.airNow, config.weather),
   calendarInfo(config.calendar),
   sleepInfo(config.sleep),
   journalInfo(config.journal),
@@ -610,6 +611,33 @@ function weather(weatherCfg) {
     `${Math.round(snowTotal/0.254)/100}in ❄` +
     ` &mdash; ${Math.round(qpfTotal*1000)/1000}in QPF</div>` +
     `\n<div id="wx-cond"></div>\n<div>${alert}</div>`;
+}
+
+function airQuality(aqiKey, weatherCfg) {
+  const warn = ['good', 'mod', 'usg', 'unhealthy', 'very', 'hazard'];
+  const aqiUrl = 'https://www.airnowapi.org/aq/forecast/latLong/?' +
+    `format=application/json&latitude=${weatherCfg.lat}&` +
+    `longitude=${weatherCfg.lon}&distance=25&API_KEY=${aqiKey}`;
+  const xhr = new XMLHttpRequest();
+  const results = ['<h2>Air Quality</h2>'];
+
+  xhr.open('GET', aqiUrl, false);
+  xhr.send(null);
+  aqi = JSON.parse(xhr.responseText);
+  aqi.forEach((i) => {
+    let html = `<p>${i.DateForecast.trim()}: ` +
+      `<span class="${warn[i.Category.Number - 1]}` +
+      `${i.ActionDay ? ' action' : ''}">${i.AQI}, ` +
+      `${i.Category.Name} (${i.ParameterName})</span>`;
+
+    if (i.Discussion.length > 0) {
+      html += `, ${i.Discussion}`;
+    }
+
+    html += '</p>';
+    results.push(html);
+  });
+  return results.join('');
 }
 
 function openDatabase(database) {
