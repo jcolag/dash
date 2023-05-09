@@ -17,6 +17,11 @@ const xml2js = require('xml2js');
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 const config = JSON.parse(fs.readFileSync('config.json'));
+const tvColors = JSON.parse(
+  fs.readFileSync(path.join(config.journal.location, 'streaming_colors.json')
+  )
+);
+const [tvMonths, tv] = collateViewing(config.journal, tvColors);
 const elements = [
   dateInfo(config.birthday, config.weather),
   holidayList(),
@@ -868,4 +873,127 @@ function calculateBio(type, days) {
   return `${rhythm['icon']}${sign}${value}${dir}`;
 }
 
+function collateViewing(journal, colors) {
+  const files = [];
+  const months = [];
+  const result = {};
+  let length = 0;
 
+  updateViewing(config.journal);
+  Object.keys(colors).forEach((k) => {
+    result[k] = {
+      shows: [],
+      emoji: [],
+      opinion: [],
+    };
+  });
+  fs.readdirSync(journal.location).forEach((file) => {
+    if (file.indexOf('.json') < 0 || file.indexOf('-') < 0) {
+      return;
+    }
+
+    files.push(file.split('.')[0]);
+    months.push(
+      JSON.parse(
+        fs.readFileSync(
+          path.join(journal.location, file)
+        )
+      )
+    );
+
+    months[months.length - 1].forEach((s) => {
+      if (!Object.prototype.hasOwnProperty.call(result, s.service)) {
+        result[s.service] = {
+          shows: [],
+          emoji: [],
+          opinion: [],
+        };
+        while (result[s.service].shows.length < length - 1) {
+          result[s.service].shows.push(0);
+          result[s.service].emoji.push(0);
+          result[s.service].opinion.push(0);
+        }
+      }
+
+      while (result[s.service].shows.length < length - 1) {
+        result[s.service].shows.push(0);
+        result[s.service].emoji.push(0);
+        result[s.service].opinion.push(0);
+      }
+
+      result[s.service].shows.push(s.shows);
+      result[s.service].emoji.push(s.emoji);
+      result[s.service].opinion.push(s.opinion);
+      if (result[s.service].shows.length > length) {
+        length = result[s.service].shows.length;
+      }
+    });
+  });
+  Object.keys(result).forEach((k) => {
+    while (result[k].shows.length < length) {
+      result[k].shows.push(0);
+      result[k].emoji.push(0);
+      result[k].opinion.push(0);
+    }
+  });
+  return [files, result];
+}
+
+function updateViewing(journal) {
+  const now = new Date();
+  const rows = [];
+  const sent = new sentiment();
+  const services = [];
+  const report = [];
+  let yy = now.getYear() + 1900;
+  let mm = now.getMonth() + 1;
+
+  prefix = `${yy}-${('0' + mm).slice(-2)}-`;
+  suffix = '.md';
+
+  fs.readdirSync(journal.location).forEach((file) => {
+    if (file.indexOf(prefix) < 0 || file.indexOf(suffix) < 0) {
+      return;
+    }
+
+    fs
+      .readFileSync(path.join(journal.location, file))
+      .toString()
+      .split('\n')
+      .filter((l) => l.indexOf('|**') === 0)
+      .forEach((l) => {
+        const columns = l.split('|');
+
+        rows.push(columns);
+        if (services.indexOf(columns[2]) < 0) {
+          services.push(columns[2]);
+        }
+      });
+  });
+
+  services.filter((s) => s.length > 0).sort().forEach((service) => {
+    const thoughts = [];
+    const emoji = [];
+    let count = 0;
+
+    rows
+      .filter((r) => r[2] === service)
+      .forEach((show) => {
+        thoughts.push(show[4]);
+        emoji.push(show[3]);
+        emoji.push(show[5]);
+        count += 1;
+      });
+    report.push({
+      service: service,
+      shows: count,
+      emoji: Math.round(sent.analyze(emoji.join(' ')).comparative * 1000) / 1000,
+      opinion: Math.round(sent.analyze(thoughts.join(' ')).comparative * 1000) / 1000,
+    });
+  });
+
+  fs.writeFileSync(
+    path.join(journal.location, `${yy}-${('0' + mm).slice(-2)}.json`),
+    JSON.stringify(report, ' ', 2)
+  );
+}
