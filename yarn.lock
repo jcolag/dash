@@ -398,6 +398,11 @@ esutils@^2.0.2:
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.3.tgz#74d2eb4de0b8da1293711910d50775b9b710ef64"
   integrity sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
 
+ethiopian-calendar-date-converter@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/ethiopian-calendar-date-converter/-/ethiopian-calendar-date-converter-2.0.2.tgz#00025b79d46e1eb4d621ab224046458c3481b4a7"
+  integrity sha512-dcgWIHKLnZ47IiiWzezdHXrBs5lbvMcytu8Fo7MtN4lDVTukG2V8lK/xa/Xx1p/gZgpcbd1b8TLgzrjOHiryYg==
+
 expand-template@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/expand-template/-/expand-template-2.0.3.tgz#6e14b3fcee0f3a6340ecb57d2e8918692052a47c"
@@ -458,6 +463,13 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.7.tgz#609f39207cb614b89d0765b477cb2d437fbf9787"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
+floreal@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/floreal/-/floreal-1.1.1.tgz#916f527cc93ca1821ef5e63f4e9b9652c39573da"
+  integrity sha512-06A3X94JlAyEEYH4f7v1cLuzBvikgwhmp9BQJk3zZV6+BOe428IxOTK6TjBxx/gLANcn4Bdd24f2MTQsMVjqKQ==
+  dependencies:
+    roman-numerals "^0.3.2"
+
 fs-constants@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fs-constants/-/fs-constants-1.0.0.tgz#6be0de9be998ce16af8afc24497b9ee9b7ccd9ad"
@@ -513,6 +525,11 @@ hebrew-date@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/hebrew-date/-/hebrew-date-1.0.6.tgz#151743dc1174d41d5537f9b04d200baefd5bb02f"
   integrity sha512-rC+RTJ9l/sGkaykdkAfuHj+pogzb7JhKhFE6kuttVyEUseHAYbgSwLQvqWtfvINKrP/FIz/DbZrpFZM35L0bdQ==
+
+hijri-converter@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/hijri-converter/-/hijri-converter-1.1.1.tgz#5a0c6930ab3d1aaceb6d402464cc8710309748b9"
+  integrity sha512-uY2oDZllg7wcgvY7rdrM1VUE5iEqNjKGtrBUJlzniAsY73FuC5mb0kzdqLE/bU9Q50Iwhn6b9/Udw8SUIXHlhQ==
 
 ieee754@^1.1.13:
   version "1.2.1"
@@ -851,6 +868,11 @@ rimraf@^3.0.2:
   dependencies:
     glob "^7.1.3"
 
+roman-numerals@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/roman-numerals/-/roman-numerals-0.3.2.tgz#907ddf90c64e1b5dce8ed5e8fb0718318f2f26e6"
+  integrity sha512-aTmaKtxczT3K4ZhtJDauOZ6LY3e1xNDf2SBn7aRY/ErAtCCuVYuwNQbPuh+SWTjGmbg9p5Nlt8sJbQNkto8uyg==
+
 rrule@^2.6.8:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/rrule/-/rrule-2.7.1.tgz#2511e1aed0e96fb5acf831304cde97d2cb65d99e"
@@ -881,6 +903,11 @@ semver@^7.3.5:
   integrity sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==
   dependencies:
     lru-cache "^6.0.0"
+
+sentiment@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/sentiment/-/sentiment-5.0.2.tgz#01e4396d9b5b17b1176f16c9d1a8be87b16cc1d6"
+  integrity sha512-ZeC3y0JsOYTdwujt5uOd7ILJNilbgFzUtg/LEG4wUv43LayFNLZ28ec8+Su+h3saHlJmIwYxBzfDHHZuiMA15g==
 
 shebang-command@^2.0.0:
   version "2.0.0"
@@ -969,6 +996,11 @@ text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==
+
+tibetan-date-calculator@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/tibetan-date-calculator/-/tibetan-date-calculator-1.2.1.tgz#32effd6bb65a8f73a1c2393475055cc0fc7c21b6"
+  integrity sha512-gylZ+EHl8Y4Yf42YgnxfimAvodml1tfVU3rBFgHc7eOtqpxd9dbk+NKXuHhisixXMJYZNN5Rqj9VWdJ/XtrU4A==
 
 tslib@^2.4.0:
   version "2.4.1"
