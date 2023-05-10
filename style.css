@@ -7,25 +7,28 @@
 }
 
 :root {
-  --border: #859900;
-  --day: #cb4b16b0;
-  --heading: #6c71c4;
-  --hover: #657b83;
-  --journal: #cb4b16;
-  --night: #268bd2b0;
-  --sleep: #2aa198;
   --text: #839496;
+  --yellow: #b58900;
+  --orange: #cb4b16;
+  --red: #dc322f;
+  --magenta: #d33682;
+  --violet: #6c71c4;
+  --blue: #268bd2;
+  --cyan: #2aa198;
+  --green: #859900;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #002b36;
+    --hover: #586e75;
   }
 }
 
 @media (prefers-color-scheme: light), @media (prefers-color-scheme: no-preference) {
   :root {
     --background: #eee8d5;
+    --hover: #657b83;
   }
 }
 
@@ -37,7 +40,7 @@ body {
 }
 
 h1,h2,h3,h4,h5,h6 {
-  color: var(--heading);
+  color: var(--violet);
   margin-bottom: 0.25em;
   margin-top: 0;
 }
@@ -55,7 +58,7 @@ audio {
 }
 
 .panel {
-  border: 1px solid var(--border);
+  border: 1px solid var(--green);
   border-radius: 1em;
   float: left;
   margin-left: 0.5vw;
@@ -72,14 +75,14 @@ audio {
 }
 
 .journal-bar {
-  background-color: var(--journal);
+  background-color: var(--orange);
   float: left;
   margin-bottom: 1px;
   width: 4px;
 }
 
 .sleep-bar {
-  background-color: var(--sleep);
+  background-color: var(--cyan);
   float: left;
   margin-bottom: 1px;
   width: 4px;
@@ -95,6 +98,7 @@ audio {
   float: left;
   font-family: 'OpenMoji Color';
   font-size: small;
+  opacity: 75%;
   width: 4%;
 }
 
@@ -103,18 +107,18 @@ audio {
 }
 
 .temp-bar-l {
-  background-color: var(--day);
+  background-color: var(--orange);
 }
 
 .temp-bar-d {
-  background-color: var(--night);
+  background-color: var(--blue);
 }
 
 .temp-bar-r {
-  background: linear-gradient(0.25turn, var(--night), var(--day));
+  background: linear-gradient(0.25turn, var(--blue), var(--orange));
 }
 
 .temp-bar-s {
-  background: linear-gradient(0.25turn, var(--day), var(--night));
+  background: linear-gradient(0.25turn, var(--orange), var(--blue));
 }
 
