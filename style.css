@@ -122,3 +122,37 @@ audio {
   background: linear-gradient(0.25turn, var(--orange), var(--blue));
 }
 
+span.good, span.mod, span.usg, span.unhealthy, span.very, span.hazard {
+  border-radius: 0.33em;
+  color: var(--background);
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+span.good {
+  background-color: var(--green);
+}
+
+span.mod {
+  background-color: var(--yellow);
+}
+
+span.usg {
+  background-color: var(--orange);
+}
+
+span.unhealthy {
+  background-color: var(--red);
+}
+
+span.very {
+  background-color: var(--magenta);
+}
+
+span.hazard {
+  background-color: var(--violet);
+}
+
+span.action {
+  border: 2px solid var(--blue);
+}
