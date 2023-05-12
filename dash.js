@@ -997,3 +997,10 @@ function updateViewing(journal) {
     JSON.stringify(report, ' ', 2)
   );
 }
+function readStepCounts(ped) {
+  return fs.readFileSync(ped.location, 'utf-8')
+    .split('\n')
+    .slice(ped.skipLines)
+    .map((l) => l.split(','));
+}
+
