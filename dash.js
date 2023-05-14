@@ -998,6 +998,98 @@ function updateViewing(journal) {
     JSON.stringify(report, ' ', 2)
   );
 }
+
+function chartShows(journal, months, watching, colors) {
+  const id = 'showCountChart';
+  const result = [];
+  const shows = Object.keys(watching).map((s) => {
+    return {
+      name: s,
+      data: watching[s].shows,
+    };
+  });
+
+  result.push('<h2>Shows Watched</h2>');
+  result.push(`<div style="height: 400px"><canvas id="${id}"></canvas></div>`);
+  result.push(chartJsScript(id, months, shows, colors));
+
+  return result.join('');
+}
+
+function chartEmoji(journal, months, watching, colors) {
+  const id = 'showEmojiChart';
+  const result = [];
+  const shows = Object.keys(watching).map((s) => {
+    return {
+      name: s,
+      data: watching[s].emoji,
+    };
+  });
+
+  result.push('<h2>Media Emoji Sentiment</h2>');
+  result.push(`<div style="height: 350px"><canvas id="${id}"></canvas></div>`);
+  result.push(chartJsScript(id, months, shows, colors));
+
+  return result.join('');
+}
+
+function chartOpinion(journal, months, watching, colors) {
+  const id = 'showOpinionChart';
+  const result = [];
+  const shows = Object.keys(watching).map((s) => {
+    return {
+      name: s,
+      data: watching[s].opinion,
+    };
+  });
+
+  result.push('<h2>Media Opinion Sentiment</h2>');
+  result.push(`<div style="height: 400px"><canvas id="${id}"></canvas></div>`);
+  result.push(chartJsScript(id, months, shows, colors));
+
+  return result.join('');
+}
+
+function chartJsScript(id, labels, info, colors) {
+  const services = info
+    .filter((s) => s.data.reduce((a, b) => a + b, 0) !== 0)
+    .map((s) => {
+      return {
+        backgroundColor: colors[s.name],
+        borderColor: colors[s.name],
+        borderWidth: 1,
+        color: colors[s.name],
+        data: s.data,
+        label: s.name,
+      };
+  });
+  const data = {
+    type: 'line',
+    data: {
+      datasets: services,
+      labels: labels
+    },
+    options: {
+      plugins: {
+        legend: {
+          position: 'right'
+        }
+      },
+      maintainAspectRatio: false,
+      title: {
+        display: false
+      }
+    }
+  };
+  let script = '<script>window.addEventListener("load", () => {' +
+    `const ctx = document.getElementById('${id}');` +
+    'new Chart(ctx, ';
+
+  script += JSON.stringify(data);
+  script += ');});</script>';
+  return script;
+}
+
 function readStepCounts(ped) {
   return fs.readFileSync(ped.location, 'utf-8')
     .split('\n')
