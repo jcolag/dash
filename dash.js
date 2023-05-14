@@ -1097,3 +1097,86 @@ function readStepCounts(ped) {
     .map((l) => l.split(','));
 }
 
+function chartStepsByDay(ped, steps) {
+  const id = 'day-steps';
+  const result = [
+    `<div style="height: 300px"><canvas id="${id}"></canvas></div>`,
+  ];
+  const data = {
+    type: 'bar',
+    data: {
+      datasets: [{
+        data: steps
+          .reverse()
+          .slice(0, ped.maxDays)
+          .map((d) => d.slice(1, 25).reduce((a, b) => Number(a) + Number(b), 0))
+          .reverse(),
+        label: 'Daily Steps'
+      }],
+      labels: steps.reverse().slice(0, ped.maxDays).map((d) => d[0])
+    },
+    options: {
+      legend: {
+        position: 'right'
+      },
+      maintainAspectRatio: false,
+      title: {
+        display: false
+      }
+    }
+  };
+  let script = '<script>window.addEventListener("load", () => {' +
+    `const ctx = document.getElementById('${id}');` +
+    'new Chart(ctx, ';
+
+  script += JSON.stringify(data);
+  script += ');});</script>';
+  result.push(script);
+  return result.join('');
+}
+
+function chartStepsByHour(ped, steps) {
+  const id = 'hour-steps';
+  const result = [
+    `<div style="height: 300px"><canvas id="${id}"></canvas></div>`,
+  ];
+  const data = {
+    type: 'bar',
+    data: {
+      datasets: [],
+      labels: Array.from({length:24}, (v, i) => 0+i)
+    },
+    options: {
+      legend: {
+        position: 'right'
+      },
+      maintainAspectRatio: false,
+      title: {
+        display: false
+      }
+    }
+  };
+  const counts = [];
+  let script = '<script>window.addEventListener("load", () => {' +
+    `const ctx = document.getElementById('${id}');` +
+    'new Chart(ctx, ';
+
+  for (let i = 1; i <= 24; i++) {
+    counts.push(steps
+      .reverse()
+      .slice(0, ped.maxDays)
+      .map((d) => d[i])
+      .reduce((a, b) =>  Number(a) + Number(b), 0) /
+      (steps.length > ped.maxDays ? ped.maxDays : steps.length)
+    );
+  }
+
+  data.data.datasets.push({
+    data: counts,
+    label: 'Hourly Steps'
+  });
+  script += JSON.stringify(data);
+  script += ');});</script>';
+  result.push(script);
+  return result.join('');
+}
