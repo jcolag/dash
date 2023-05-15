@@ -17,6 +17,7 @@ const xml2js = require('xml2js');
 const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
 
 const config = JSON.parse(fs.readFileSync('config.json'));
+const steps = readStepCounts(config.pedometer);
 const tvColors = JSON.parse(
   fs.readFileSync(path.join(config.journal.location, 'streaming_colors.json')
   )
@@ -33,6 +34,11 @@ const elements = [
   calendarInfo(config.calendar),
   sleepInfo(config.sleep),
   journalInfo(config.journal),
+  chartShows(config.journal, tvMonths, tv, tvColors),
+  chartEmoji(config.journal, tvMonths, tv, tvColors),
+  chartOpinion(config.journal, tvMonths, tv, tvColors),
+  chartStepsByDay(config.pedometer, steps),
+  chartStepsByHour(config.pedometer, steps),
 ];
 
 const head = '<!DOCTYPE html><html lang="en"><head>' +
