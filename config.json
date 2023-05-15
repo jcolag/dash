@@ -13,8 +13,17 @@
     "theme": "solarized-light",
     "user": ""
   },
+  "journal": {
+    "days": 91,
+    "location": ""
+  },
   "notes": {
     "file": ""
+  },
+  "pedometer": {
+    "location": "",
+    "maxDays": 91,
+    "skipLines": 2
   },
   "sleep": {
     "days": 0,
