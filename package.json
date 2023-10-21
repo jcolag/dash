@@ -8,7 +8,7 @@
   "license": "AGPL-3.0",
   "private": false,
   "dependencies": {
-    "better-sqlite3": "^7.4.5",
+    "better-sqlite3": "^8.7.0",
     "date-holidays": "^3.14.2",
     "ethiopian-calendar-date-converter": "^2.0.2",
     "floreal": "^1.1.1",
