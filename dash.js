@@ -570,7 +570,8 @@ function weather(weatherCfg) {
         windGust: Number(weather['wind-speed'][1].value[index]),
         windSustained: weather['wind-speed'][0].value[index],
       });
-      let temp = Number(weather.temperature[2].value[index]);
+      let t = weather.temperature[2].value[index];
+      let temp = typeof(t) === 'number' ? Number(t) : 0;
       if (temp > max) {
         max = temp;
       }
