@@ -548,13 +548,14 @@ function weather(weatherCfg) {
     });
   times
     .forEach((time, index) => {
+      let qpf = weather['hourly-qpf'][0].value[index];
       byTime.push({
         chancePrecip: weather['probability-of-precipitation'][0].value[index],
         clouds: weather['cloud-amount'][0].value[index],
         condition: weather.weather[0]['weather-conditions'][index],
         dewPoint: weather.temperature[0].value[index],
         humidity: weather.humidity[0].value[index],
-        qpf: Number(weather['hourly-qpf'][0].value[index]),
+        qpf: typeof(qpf) === 'number' ? Number(qpf) : 0,
         rain: index < openWeather.hourly.length ?
           openWeather.hourly[index].rain :
           null,
