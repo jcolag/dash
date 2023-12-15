@@ -604,7 +604,7 @@ function weather(weatherCfg) {
         `style="height: ${hr.temperature - min + 50}px; ` +
         `margin-top: ${max - hr.temperature}px;"` +
         `title="${hr.time.toTimeString()}\n${hr.temperature}°F ` +
-        `(${Number(hr.windChill)}°F)\n` +
+        `(${typeof(hr.windChill) === 'number' ? hr.windChill : 0}°F)\n` +
         `${hr.windSustained}mph ` +
         (isNaN(hr.windGust) ? '' : `(${Number(hr.windGust)}) `) +
         `${hr.windDirection}° ${dirArrow(hr.windDirection)}\n` +
