@@ -589,7 +589,7 @@ function weather(weatherCfg) {
   xhr.send(null);
   parser
     .parseString(xhr.responseText, (e, result) => {
-      if (e) {
+      if (e || !result) {
         console.log(e);
         alert = '';
       } else {
