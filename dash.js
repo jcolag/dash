@@ -592,8 +592,10 @@ function weather(weatherCfg) {
       if (e || !result) {
         console.log(e);
         alert = '';
-      } else {
+      } else if (Object.prototype.hasOwnProperty.call(result, 'feed')) {
         alert = result.feed.entry.map((e) => e.summary).join('\n<br>\n');
+      } else {
+        alert = '';
       }
     });
   return '<h2>Hourly Weather</h2>\n' +
