@@ -25,6 +25,7 @@ const tvColors = JSON.parse(
 const [tvMonths, tv] = collateViewing(config.journal, tvColors);
 const elements = [
   dateInfo(config.birthday, config.weather),
+  listTvShows(),
   holidayList(),
   notes(config.notes.file),
   voaNewscast(),
@@ -1058,6 +1059,46 @@ function chartOpinion(journal, months, watching, colors) {
   result.push(chartJsScript(id, months, shows, colors));
 
   return result.join('');
+}
+
+function listTvShows() {
+  const today = new Date().toISOString().split('T')[0];
+  const url = `https://api.tvmaze.com/schedule?country=US&date=${today}`;
+  const webUrl = `https://api.tvmaze.com/schedule/web?country=US&date=${today}`;
+  const xhr = new XMLHttpRequest();
+  let webList;
+
+  xhr.open('GET', url, false);
+  xhr.send(null);
+  showList = JSON
+    .parse(xhr.responseText)
+    .filter((s) => s.show.type === 'Scripted')
+    .filter((s) => s.show.schedule.days.length < 3);
+  xhr.open('GET', webUrl, false);
+  xhr.send(null);
+  webShowList = JSON
+    .parse(xhr.responseText)
+    .filter((s) => s._embedded.show.type === 'Scripted')
+    .filter((s) => s._embedded.show.schedule.days.length < 3);
+
+  return '<h2>Television</h2><ul>' +
+    showList
+      .map((s) =>
+        `<li><details><b>${s.name}</b>: ${s.summary}<summary>` +
+        `${s.show.name} S${s.season}E${s.number} (${s.show.network?.name})` +
+        '</summary></details></li>'
+      )
+      .join('') +
+    webShowList
+      .map((s) =>
+        '<li><details>' +
+        `<b>${s.name}</b>: ${s.summary}` +
+        '<summary>' +
+        `${s._embedded.show.name} S${s.season}E${s.number} (${s._embedded.show.webChannel.name})` +
+        '</summary></details></li>'
+      )
+      .join('') +
+    '</ul>';
 }
 
 function chartJsScript(id, labels, info, colors) {
