@@ -40,6 +40,7 @@ const elements = [
   chartOpinion(config.journal, tvMonths, tv, tvColors),
   chartStepsByDay(config.pedometer, steps),
   chartStepsByHour(config.pedometer, steps),
+  aurora(),
 ];
 
 const head = '<!DOCTYPE html><html lang="en"><head>' +
@@ -1099,6 +1100,10 @@ function listTvShows() {
       )
       .join('') +
     '</ul>';
+}
+
+function aurora() {
+  return '<a href="https://www.swpc.noaa.gov/products/aurora-viewline-tonight-and-tomorrow-night-experimental" style="border: none;"><img src="https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png" style="width: 100%;"></a>';
 }
 
 function chartJsScript(id, labels, info, colors) {
