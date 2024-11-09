@@ -1,26 +1,25 @@
-const sqlite3 = require('better-sqlite3');
-const Holidays = require('date-holidays');
-const ethio = require('ethiopian-calendar-date-converter');
+const sqlite3 = require("better-sqlite3");
+const Holidays = require("date-holidays");
+const ethio = require("ethiopian-calendar-date-converter");
 const { execSync } = require("child_process");
-const floreal = require('floreal').Date;
-const fs = require('fs');
-const hebrewDate = require('hebrew-date');
-const hijri = require('hijri-converter');
-const opn = require('opn');
-const os = require('os');
-const path = require('path');
-const { rrulestr } = require('rrule');
-const sentiment = require('sentiment');
-const suncalc = require('suncalc');
-const tibet = require('tibetan-date-calculator');
-const xml2js = require('xml2js');
-const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+const floreal = require("floreal").Date;
+const fs = require("fs");
+const hebrewDate = require("hebrew-date");
+const hijri = require("hijri-converter");
+const opn = require("opn");
+const os = require("os");
+const path = require("path");
+const { rrulestr } = require("rrule");
+const sentiment = require("sentiment");
+const suncalc = require("suncalc");
+const tibet = require("tibetan-date-calculator");
+const xml2js = require("xml2js");
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
-const config = JSON.parse(fs.readFileSync('config.json'));
+const config = JSON.parse(fs.readFileSync("config.json"));
 const steps = readStepCounts(config.pedometer);
 const tvColors = JSON.parse(
-  fs.readFileSync(path.join(config.journal.location, 'streaming_colors.json')
-  )
+  fs.readFileSync(path.join(config.journal.location, "streaming_colors.json")),
 );
 const [tvMonths, tv] = collateViewing(config.journal, tvColors);
 const elements = [
