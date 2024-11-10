@@ -42,100 +42,101 @@ const elements = [
   aurora(),
 ];
 
-const head = '<!DOCTYPE html><html lang="en"><head>' +
+const head =
+  '<!DOCTYPE html><html lang="en"><head>' +
   '<meta charset="utf-8"><title>' +
   'Morning Dashboard</title><link rel="stylesheet" href="style.css">' +
   '<script type="text/javascript">window.addEventListener("load", (e) => {' +
   'document.getElementById("voa").playbackRate=1.5;});</script>' +
   '<script src="interactive.js" type="text/javascript"></script>' +
   '<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>' +
-  '</head><body>';
+  "</head><body>";
 const html = elements
   .filter((e) => e)
   .map((e) => `<div class="panel">\n${e}\n</div>\n`)
-  .join(' ');
-const github = '<div class="img-frame"><img src="https://github-readme-' +
+  .join(" ");
+const github =
+  '<div class="img-frame"><img src="https://github-readme-' +
   `streak-stats.herokuapp.com/?user=${config.github.user}&` +
   `theme=${config.github.theme}&date_format=${config.github.date}"` +
-  '></img></div>';
-fs.writeFileSync('morning.html', head + html + github + '</body></html>');
-opn('morning.html');
+  "></img></div>";
+fs.writeFileSync("morning.html", head + html + github + "</body></html>");
+opn("morning.html");
 return;
 
 function dateInfo(birthday, wx) {
   const now = new Date();
   const items = [];
-  const today = new Date().toLocaleDateString(
-    'en-us',
-    {
-      weekday:"long",
-      year:"numeric",
-      month:"long",
-      day:"numeric"
-    }
-  );
+  const today = new Date().toLocaleDateString("en-us", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   const sun = suncalc.getTimes(new Date(), wx.lat, wx.lon);
   const dateHebrew = hebrewDate(new Date());
-  const dateHijri = hijri.toHijri(now.getFullYear(), now.getMonth(), now.getDate());
+  const dateHijri = hijri.toHijri(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+  );
   const julianDay = Math.floor(Date.now() / 86400000 + 2440587.5);
   const bday = new Date(Date.parse(birthday));
   const holidays = [];
-  let date = '<h2>Today Is...</h2>\n<ul>';
+  let date = "<h2>Today Is...</h2>\n<ul>";
 
   items.push(today);
   items.push(
     `${timeFmt(sun.dawn)} 🌞 ${timeFmt(sun.sunrise)} ➡ ` +
-    `${timeFmt(sun.solarNoon)}  ➡ ` +
-    `${timeFmt(sun.sunset)} 🌠 ${timeFmt(sun.dusk)}`
+      `${timeFmt(sun.solarNoon)}  ➡ ` +
+      `${timeFmt(sun.sunset)} 🌠 ${timeFmt(sun.dusk)}`,
   );
   items.push(
     `Golden hour until ${timeFmt(sun.goldenHourEnd)}, ` +
-    `after ${timeFmt(sun.goldenHour)}`
+      `after ${timeFmt(sun.goldenHour)}`,
   );
-  items.push(`${execSync('pom')} - ${execSync('moonth')}`);
+  items.push(`${execSync("pom")} - ${execSync("moonth")}`);
   items.push(
-    `✡ ${dateHebrew.month_name} ${dateHebrew.date}, ${dateHebrew.year}`
+    `✡ ${dateHebrew.month_name} ${dateHebrew.date}, ${dateHebrew.year}`,
   );
   items.push(
-    `☪ ${dateHijri.hy}-${islamicMonth(dateHijri.hm)}-${dateHijri.hd}`
+    `☪ ${dateHijri.hy}-${islamicMonth(dateHijri.hm)}-${dateHijri.hd}`,
   );
   items.push(`🇪🇹 ${ethio.EthDateTime.now().toDateWithDayString()}`);
   items.push(`🇫🇷 ${new floreal().toFullDateString()}`);
   items.push(`🏴󠁣󠁮󠀵󠀴󠁿 ${new tibet.TibetanDate().toString()}`);
   items.push(`${julianDay} Julian`);
   items.push(`${Date.now() / 1000} UNIX`);
-  items.push(execSync('ccal --date').toString());
+  items.push(execSync("ccal --date").toString());
   items.push(pataphysicalCalendar(now).string);
-  items.push(execSync('ddate').toString());
+  items.push(execSync("ddate").toString());
   items.push(biorhythm(birthday));
 
   bday.setDate(bday.getDate() + 1);
-  if (
-    now.getMonth() === bday.getMonth() && now.getDate() === bday.getDate()
-  ) {
-    items.push('<b>Happy Birthday! 🎂</b>');
+  if (now.getMonth() === bday.getMonth() && now.getDate() === bday.getDate()) {
+    items.push("<b>Happy Birthday! 🎂</b>");
   }
 
-  items.push('System ' + execSync('uptime --pretty').toString());
-  date += items.map((i) => `<li>${i}</li>\n`).join(' ');
-  date += '</ul>';
+  items.push("System " + execSync("uptime --pretty").toString());
+  date += items.map((i) => `<li>${i}</li>\n`).join(" ");
+  date += "</ul>";
   return date;
 }
 
 function islamicMonth(month) {
   const months = [
-    'Muharram',
-    'Safar',
-    'Rabi`al-Awwal',
-    'Rabi`ath-Thani',
-    'Jumada l-Ula',
-    'Jumada t-Tania',
-    'Rajab',
-    'Sha`ban',
-    'Ramadan',
-    'Shawwal',
-    'Dhu l-Qa`da',
-    'Dhu l-Hijja',
+    "Muharram",
+    "Safar",
+    "Rabi`al-Awwal",
+    "Rabi`ath-Thani",
+    "Jumada l-Ula",
+    "Jumada t-Tania",
+    "Rajab",
+    "Sha`ban",
+    "Ramadan",
+    "Shawwal",
+    "Dhu l-Qa`da",
+    "Dhu l-Hijja",
   ];
 
   return months[month];
