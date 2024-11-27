@@ -23,7 +23,8 @@
   "pedometer": {
     "location": "",
     "maxDays": 91,
-    "skipLines": 2
+    "skipLines": 2,
+    "stepLength": 2.25
   },
   "sleep": {
     "days": 0,
