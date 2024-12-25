@@ -149,44 +149,48 @@ function holidayList() {
 
   Object.keys(hd.getCountries()).forEach((cc) => {
     hd.init(cc);
-    hd.setLanguages('en');
+    hd.setLanguages("en");
     let hc = hd.isHoliday(now);
     if (hc) {
       hc.forEach((h) => {
         h.country = cc;
-        holidays.push(h)
+        holidays.push(h);
       });
     }
   });
 
   if (holidays.length === 0) {
-    return '';
+    return "";
   }
 
-  const byName = groupBy(holidays, 'name');
+  const byName = groupBy(holidays, "name");
 
   holidays = Object.keys(byName).map((name) => {
     const days = byName[name];
     const type = days
-      .map((d) =>
-        `<span title="${d.country} ${d.type}">` +
-          `${countryToFlag(d.country)}</span>`
-        )
-      .join(' ');
+      .map(
+        (d) =>
+          `<span title="${d.country} ${d.type}">` +
+          `${countryToFlag(d.country)}</span>`,
+      )
+      .join(" ");
 
     return `${name} (${type})`;
   });
-  return '<h2>Today&rsquo;s Holidays</h2><ul>' +
+  return (
+    "<h2>Today&rsquo;s Holidays</h2><ul>" +
     holidays
-      .map((h) =>
-        '<li>' +
-        (h.indexOf('🇺🇸') > 0 ? '<b>' : '') +
-        `${h}` +
-        (h.indexOf('🇺🇸') > 0 ? '</b>' : '') +
-        '</li>'
+      .map(
+        (h) =>
+          "<li>" +
+          (h.indexOf("🇺🇸") > 0 ? "<b>" : "") +
+          `${h}` +
+          (h.indexOf("🇺🇸") > 0 ? "</b>" : "") +
+          "</li>",
       )
-      .join('') +
-    '</ul>';
+      .join("") +
+    "</ul>"
+  );
 }
 
 function groupBy(xs, key) {
