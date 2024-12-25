@@ -309,29 +309,30 @@ function sleepInfo(sleep) {
   const rows = fs
     .readFileSync(path.join(sleep.length))
     .toString()
-    .split('\n')
+    .split("\n")
     .slice(-sleep.days)
-    .map((line) => line.split(','))
+    .map((line) => line.split(","))
     .map((row) => ({
       height: Number(row[4]) * 60 + Number(row[5]),
-      tip: `${row[3]} ${row[1]}/${row[2]}, ` +
-        `${row[4]}:${('0'+row[5]).slice(-2)}`,
+      tip:
+        `${row[3]} ${row[1]}/${row[2]}, ` +
+        `${row[4]}:${("0" + row[5]).slice(-2)}`,
     }));
   let min = 1000;
   let max = 0;
 
-  fs
-    .readFileSync(path.join(sleep.reaction))
+  fs.readFileSync(path.join(sleep.reaction))
     .toString()
-    .split('\n')
+    .split("\n")
     .slice(-sleep.days)
-    .map((line) => line.split(','))
+    .map((line) => line.split(","))
     .forEach((line, i) => {
       rows[i].errors = Number(line[6]);
       rows[i].reaction = Number(line[7]) / Number(line[5]);
-      rows[i].titleE = Number(line[6]) === 0 ?
-        '' :
-        `, ${Number(line[6])} error${Number(line[6]) === 1 ? '' : 's'}`;
+      rows[i].titleE =
+        Number(line[6]) === 0
+          ? ""
+          : `, ${Number(line[6])} error${Number(line[6]) === 1 ? "" : "s"}`;
     });
   rows.forEach((r) => {
     if (r.height > max) {
