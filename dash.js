@@ -249,32 +249,28 @@ function blogInfo(blog) {
     const lines = fs
       .readFileSync(path.join(blog.posts, f.name))
       .toString()
-      .split('\n');
-    const dateline = lines.filter((l) => l.indexOf('date: ') === 0)[0];
-    let title = lines
-      .filter((l) => l.indexOf('title: ') === 0)[0];
+      .split("\n");
+    const dateline = lines.filter((l) => l.indexOf("date: ") === 0)[0];
+    let title = lines.filter((l) => l.indexOf("title: ") === 0)[0];
 
     if (!dateline) {
       return;
     }
 
-    title = title
-      .split(':')
-      .slice(1)
-      .join(':')
-      .trim();
+    title = title.split(":").slice(1).join(":").trim();
     if (dateline.indexOf(datesig) > 0) {
-      const time = dateline.split(' ')[2];
-      const stamp = new Date(dateline.split(':').slice(1).join(':').trim());
-      const postTz = dateline.split(':').slice(-1).join(':').slice(2);
-      const tz = (stamp.getTimezoneOffset() > 0 ? '-' : '') +
-        (
-          '0' + Math.abs(stamp.getTimezoneOffset() / 60).toString()
-        ).slice(-2) +
-        ('0' + (stamp.getTimezoneOffset() % 60).toString()).slice(-2);
+      const time = dateline.split(" ")[2];
+      const stamp = new Date(dateline.split(":").slice(1).join(":").trim());
+      const postTz = dateline.split(":").slice(-1).join(":").slice(2);
+      const tz =
+        (stamp.getTimezoneOffset() > 0 ? "-" : "") +
+        ("0" + Math.abs(stamp.getTimezoneOffset() / 60).toString()).slice(-2) +
+        ("0" + (stamp.getTimezoneOffset() % 60).toString()).slice(-2);
 
-      files.push(`${f.name} (<i>${title}</i>) ` +
-        `&mdash; ${time.split(':').slice(0,2).join(':')}`);
+      files.push(
+        `${f.name} (<i>${title}</i>) ` +
+          `&mdash; ${time.split(":").slice(0, 2).join(":")}`,
+      );
 
       if (f.name.indexOf(datesig) < 0) {
         files.push(`${f.name} has a bad date line`);
