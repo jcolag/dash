@@ -207,7 +207,7 @@ function countryToFlag(country) {
   }
 
   const cc = country.toUpperCase();
-  return Array.from(cc).map(letterToEmoji).join('');
+  return Array.from(cc).map(letterToEmoji).join("");
 }
 
 function letterToEmoji(l) {
@@ -217,7 +217,7 @@ function letterToEmoji(l) {
 }
 
 function timeFmt(when) {
-  return `${when.getHours()}:${('0' + when.getMinutes()).slice(-2)}`;
+  return `${when.getHours()}:${("0" + when.getMinutes()).slice(-2)}`;
 }
 
 function notes(nightNotesFile) {
@@ -225,18 +225,17 @@ function notes(nightNotesFile) {
     const nightNotes = fs.readFileSync(nightNotesFile);
 
     if (nightNotes.length > 0) {
-      return '<h2>Notes</h2>\n' +
-        nightNotes.toString().replace(/\n/g, '<br>');
+      return "<h2>Notes</h2>\n" + nightNotes.toString().replace(/\n/g, "<br>");
     }
   }
-  
+
   return null;
 }
 
 function blogInfo(blog) {
   const today = new Date();
-  const eom = new Date(today.getYear(), today.getMonth() + 1, -1).getDate()
-  const datesig = today.toISOString().split('T')[0];
+  const eom = new Date(today.getYear(), today.getMonth() + 1, -1).getDate();
+  const datesig = today.toISOString().split("T")[0];
   const filenames = fs.readdirSync(blog.posts, { withFileTypes: true });
   const files = [];
   let result = `<h2>${blog.title}</h2>\n<ul>\n`;
