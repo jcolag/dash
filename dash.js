@@ -277,30 +277,29 @@ function blogInfo(blog) {
 
       if (stamp.getSeconds() > 20) {
         files.push(
-          `<i>${title}</i> might want to release earlier in the minute.`
+          `<i>${title}</i> might want to release earlier in the minute.`,
         );
       }
 
       if (postTz !== tz) {
-        files.push(
-          `<i>${title}</i> needs a timezone of <tt>${tz}</tt>.`
-        );
+        files.push(`<i>${title}</i> needs a timezone of <tt>${tz}</tt>.`);
       }
     }
   });
 
-  if (today.getDay() === 6 && (
-    today.getDate() < 7 || today.getDate() === eom
-  )) {
-    files.push('The next newsletter issue should go out today.');
+  if (
+    today.getDay() === 6 &&
+    (today.getDate() < 7 || today.getDate() === eom)
+  ) {
+    files.push("The next newsletter issue should go out today.");
   }
 
   if (files.length === 0) {
     return null;
   }
 
-  result += files.map((f) => `<li>${f}</li>\n`).join(' ');
-  result += '</ul>';
+  result += files.map((f) => `<li>${f}</li>\n`).join(" ");
+  result += "</ul>";
   return result;
 }
 
