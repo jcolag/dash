@@ -344,26 +344,32 @@ function sleepInfo(sleep) {
 
   min -= 25;
   const bars = rows
-    .map((r, i) => `<div class="sleep-bar day-${i}" style="height: ` +
-      `${(r.height - min)/2}px; margin-top: ${(max - r.height)/2}px; ` +
-      `opacity: ${(1 - r.reaction + 0.33) * Math.pow(1.1, r.errors)};" ` +
-      `title="${r.tip}\n${
-        r.reaction.toString().slice(0,5)
-      }s/char${r.titleE}" ` +
-      `onmouseenter="let wx=document.getElementById('sleep');`+
-      `wx.innerHTML=event.target.title.replace(/\\n/g, '<br>')" ` +
-      `onmouseleave="document.getElementById('sleep').innerHTML=''">` +
-      '</div>')
-    .join('\n')
+    .map(
+      (r, i) =>
+        `<div class="sleep-bar day-${i}" style="height: ` +
+        `${(r.height - min) / 2}px; margin-top: ${(max - r.height) / 2}px; ` +
+        `opacity: ${(1 - r.reaction + 0.33) * Math.pow(1.1, r.errors)};" ` +
+        `title="${r.tip}\n${r.reaction
+          .toString()
+          .slice(0, 5)}s/char${r.titleE}" ` +
+        `onmouseenter="let wx=document.getElementById('sleep');` +
+        `wx.innerHTML=event.target.title.replace(/\\n/g, '<br>')" ` +
+        `onmouseleave="document.getElementById('sleep').innerHTML=''">` +
+        "</div>",
+    )
+    .join("\n");
 
-  return `<h2>Sleep, Last ${sleep.days} Days</h2>\n` + bars +
-    '<div id="sleep"></div>';
+  return (
+    `<h2>Sleep, Last ${sleep.days} Days</h2>\n` +
+    bars +
+    '<div id="sleep"></div>'
+  );
 }
 
 function formatDate(date) {
   const y = date.getFullYear();
-  const m = ('00' + (date.getMonth() + 1)).slice(-2);
-  const d = ('00' + (date.getDate())).slice(-2);
+  const m = ("00" + (date.getMonth() + 1)).slice(-2);
+  const d = ("00" + date.getDate()).slice(-2);
 
   return `${y}-${m}-${d}`;
 }
