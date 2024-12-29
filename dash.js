@@ -394,10 +394,9 @@ function journalInfo(journal) {
     let s = { comparative: null, score: null };
 
     try {
-      j = fs.readFileSync(file, 'utf-8');
+      j = fs.readFileSync(file, "utf-8");
       s = sent.analyze(j);
-    } catch(e) {
-    }
+    } catch (e) {}
 
     if (j === null) {
       return;
