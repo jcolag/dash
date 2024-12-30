@@ -425,18 +425,24 @@ function journalInfo(journal) {
   });
 
   const bars = entries
-    .map((r, i) => `<div class="journal-bar day-${i}" style="height: ` +
-      `${(r.comparative-min)*200+10}px; margin-top: ${(max-r.comparative)*200}px; ` +
-      `opacity: ${0.5+r.words/words/2};" ` +
-      `title="${r.file}\n${r.sentiment}/${r.words}" ` +
-      `onmouseenter="let wx=document.getElementById('journal');`+
-      `wx.innerHTML=event.target.title.replace(/\\n/g, '<br>')" ` +
-      `onmouseleave="document.getElementById('journal').innerHTML=''">` +
-      '</div>')
-    .join('\n')
+    .map(
+      (r, i) =>
+        `<div class="journal-bar day-${i}" style="height: ` +
+        `${(r.comparative - min) * 200 + 10}px; margin-top: ${(max - r.comparative) * 200}px; ` +
+        `opacity: ${0.5 + r.words / words / 2};" ` +
+        `title="${r.file}\n${r.sentiment}/${r.words}" ` +
+        `onmouseenter="let wx=document.getElementById('journal');` +
+        `wx.innerHTML=event.target.title.replace(/\\n/g, '<br>')" ` +
+        `onmouseleave="document.getElementById('journal').innerHTML=''">` +
+        "</div>",
+    )
+    .join("\n");
 
-  return `<h2>Journal, Last ${journal.days} Days</h2>\n` + bars +
-    '<div id="journal"></div>';
+  return (
+    `<h2>Journal, Last ${journal.days} Days</h2>\n` +
+    bars +
+    '<div id="journal"></div>'
+  );
 }
 
 function calendarInfo(cal) {
