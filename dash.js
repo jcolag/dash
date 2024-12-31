@@ -488,9 +488,11 @@ function calendarInfo(cal) {
     return null;
   }
 
-  return '<h2>Calendar</h2>\n<ul>\n' +
-    events.map((e) => `<li>${e.name}</li>\n`).join('\n') +
-    '</ul>';
+  return (
+    "<h2>Calendar</h2>\n<ul>\n" +
+    events.map((e) => `<li>${e.name}</li>\n`).join("\n") +
+    "</ul>"
+  );
 }
 
 function voaNewscast() {
