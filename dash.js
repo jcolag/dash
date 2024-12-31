@@ -455,28 +455,27 @@ function calendarInfo(cal) {
     today.getHours(),
     today.getMinutes(),
     0,
-    0
+    0,
   );
   const db = openDatabase(cal.database);
   const eventSql = db.prepare(
-    'SELECT e.title, e.event_start, e.event_end, r.icalString FROM ' +
-    'cal_events e JOIN cal_recurrence r ON r.item_id = e.id;'
+    "SELECT e.title, e.event_start, e.event_end, r.icalString FROM " +
+      "cal_events e JOIN cal_recurrence r ON r.item_id = e.id;",
   );
   const events = eventSql
     .all()
     .map((e) => ({
       between: rrulestr(
-        'DTSTART:' +
-        new Date(
-          e.event_start / 1000 //- today.getTimezoneOffset() * 60000
-        )
-        .toISOString()
-        .replace(/[-:]/g, '')
-        .replace(/\.\d*/, '') +
-        '\n' +
-        e.icalString
-      )
-        .between(today, tomorrow, true),
+        "DTSTART:" +
+          new Date(
+            e.event_start / 1000, //- today.getTimezoneOffset() * 60000
+          )
+            .toISOString()
+            .replace(/[-:]/g, "")
+            .replace(/\.\d*/, "") +
+          "\n" +
+          e.icalString,
+      ).between(today, tomorrow, true),
       event_end: new Date(e.event_end / 1000),
       event_start: new Date(e.event_start / 1000),
       icalString: e.icalString,
