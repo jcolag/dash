@@ -537,21 +537,19 @@ function weather(weatherCfg) {
   let snowTotal;
   let qpfTotal;
 
-  xhr.open('GET', owUrl, false);
+  xhr.open("GET", owUrl, false);
   xhr.send(null);
   openWeather = JSON.parse(xhr.responseText);
-  rainTotal = openWeather
-    .hourly
+  rainTotal = openWeather.hourly
     .slice(0, 24)
-    .map((h) => (h.rain ? h.rain['1h'] : 0))
+    .map((h) => (h.rain ? h.rain["1h"] : 0))
     .reduce((acc, a) => acc + a, 0);
-  snowTotal = openWeather
-    .hourly
+  snowTotal = openWeather.hourly
     .slice(0, 24)
-    .map((h) => (h.snow ? h.snow['1h'] : 0))
+    .map((h) => (h.snow ? h.snow["1h"] : 0))
     .reduce((acc, a) => acc + a, 0);
 
-  xhr.open('GET', url, false);
+  xhr.open("GET", url, false);
   xhr.send(null);
   parser
     .parseString(xhr.responseText, (e, result) => {
