@@ -498,20 +498,21 @@ function calendarInfo(cal) {
 function voaNewscast() {
   const xhr = new XMLHttpRequest();
 
-  xhr.open('GET', 'https://www.voanews.com/podcast/?zoneId=1469', false);
+  xhr.open("GET", "https://www.voanews.com/podcast/?zoneId=7982", false);
   xhr.send(null);
 
-  const lines = xhr
-    .responseText
-    .split('\n')
-    .filter((l) => l.indexOf('<enclosure ') >= 0);
+  const lines = xhr.responseText
+    .split("\n")
+    .filter((l) => l.indexOf("<enclosure ") >= 0);
   const line = lines[0];
   const start = line.indexOf('"');
   const end = line.indexOf('"', start + 1);
   const url = line.slice(start + 1, end);
 
-  return '<h2>Voice of America Newscast</h2>' +
-    `<audio controls id="voa" src=${url}>Uh-oh!</audio>`;
+  return (
+    "<h2>Voice of America Newscast</h2>" +
+    `<audio controls id="voa" src=${url}>Uh-oh!</audio>`
+  );
 }
 
 function weather(weatherCfg) {
