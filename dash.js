@@ -516,12 +516,13 @@ function voaNewscast() {
 }
 
 function weather(weatherCfg) {
-  const url = 'https://forecast.weather.gov/MapClick.php?' +
+  const url =
+    "https://forecast.weather.gov/MapClick.php?" +
     `lat=${weatherCfg.lat}&lon=${weatherCfg.lon}&FcstType=digitalDWML`;
-  const owUrl = 'https://api.openweathermap.org/data/2.5/onecall?' +
+  const owUrl =
+    "https://api.openweathermap.org/data/2.5/onecall?" +
     `lat=${weatherCfg.lat}&lon=${weatherCfg.lon}&appid=${weatherCfg.apiKey}`;
-  const alertUrl =
-    `https://alerts.weather.gov/cap/wwaatmget.php?x=${weatherCfg.area}&y=0`;
+  const alertUrl = `https://alerts.weather.gov/cap/wwaatmget.php?x=${weatherCfg.area}&y=0`;
   const sun = suncalc.getTimes(new Date(), weatherCfg.lat, weatherCfg.lon);
   const xhr = new XMLHttpRequest();
   const parser = xml2js.Parser();
