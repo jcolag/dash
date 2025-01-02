@@ -551,48 +551,49 @@ function weather(weatherCfg) {
 
   xhr.open("GET", url, false);
   xhr.send(null);
-  parser
-    .parseString(xhr.responseText, (e, result) => {
-      if (e) {
-        console.log(e);
-      }
-      times = result.dwml.data[0]['time-layout'][0]['start-valid-time'];
-      weather = result.dwml.data[0].parameters[0];
+  parser.parseString(xhr.responseText, (e, result) => {
+    if (e) {
+      console.log("openWeather reponse issue");
+      console.log(e);
+    }
+    times = result.dwml.data[0]["time-layout"][0]["start-valid-time"];
+    weather = result.dwml.data[0].parameters[0];
+  });
+  times.forEach((time, index) => {
+    console.log(weather);
+    let qpf = weather["hourly-qpf"][0]["$"];
+    byTime.push({
+      chancePrecip: weather["probability-of-precipitation"][0]["$"],
+      clouds: weather["cloud-amount"][0]["$"],
+      condition: weather.weather[0]["weather-conditions"][index],
+      dewPoint: weather.temperature[0]["$"],
+      humidity: weather.humidity[0]["$"],
+      qpf: typeof qpf === "number" ? Number(qpf) : 0,
+      rain:
+        index < openWeather.hourly.length
+          ? openWeather.hourly[index].rain
+          : null,
+      snow:
+        index < openWeather.hourly.length
+          ? openWeather.hourly[index].snow
+          : null,
+      temperature: weather.temperature[2].value[index],
+      time: new Date(time),
+      uvi:
+        index < openWeather.hourly.length ? openWeather.hourly[index].uvi : 0,
+      windChill: weather.temperature[1].value[index],
+      windDirection: weather.direction[0].value[index],
+      windGust: weather["wind-speed"][0].value[index],
+      windSustained: weather["wind-speed"][0].value[index],
     });
-  times
-    .forEach((time, index) => {
-      let qpf = weather['hourly-qpf'][0].value[index];
-      byTime.push({
-        chancePrecip: weather['probability-of-precipitation'][0].value[index],
-        clouds: weather['cloud-amount'][0].value[index],
-        condition: weather.weather[0]['weather-conditions'][index],
-        dewPoint: weather.temperature[0].value[index],
-        humidity: weather.humidity[0].value[index],
-        qpf: typeof(qpf) === 'number' ? Number(qpf) : 0,
-        rain: index < openWeather.hourly.length ?
-          openWeather.hourly[index].rain :
-          null,
-        snow: index < openWeather.hourly.length ?
-          openWeather.hourly[index].snow :
-          null,
-        temperature: weather.temperature[2].value[index],
-        time: new Date(time),
-        uvi: index < openWeather.hourly.length ?
-          openWeather.hourly[index].uvi : 0,
-        windChill: weather.temperature[1].value[index],
-        windDirection: weather.direction[0].value[index],
-        windGust: Number(weather['wind-speed'][1].value[index]),
-        windSustained: weather['wind-speed'][0].value[index],
-      });
-      let t = weather.temperature[2].value[index];
-      let temp = typeof(t) === 'number' ? Number(t) : 0;
-      if (temp > max) {
-        max = temp;
-      }
-      if (temp < min) {
-        min = temp;
-      }
-    });
+    let t = weather.temperature[2].value[index];
+    let temp = typeof t === "number" ? Number(t) : 0;
+    if (temp > max) {
+      max = temp;
+    }
+    if (temp < min) {
+      min = temp;
+    }
   qpfTotal = byTime
     .slice(0,24)
     .map((h) => h.qpf)
