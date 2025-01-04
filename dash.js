@@ -594,53 +594,57 @@ function weather(weatherCfg) {
     if (temp < min) {
       min = temp;
     }
+  });
   qpfTotal = byTime
-    .slice(0,24)
+    .slice(0, 24)
     .map((h) => h.qpf)
     .reduce((acc, a) => acc + a, 0);
 
-  xhr.open('GET', alertUrl, false);
+  xhr.open("GET", alertUrl, false);
   xhr.send(null);
-  parser
-    .parseString(xhr.responseText, (e, result) => {
-      if (e || !result) {
-        console.log(e);
-        alert = '';
-      } else if (Object.prototype.hasOwnProperty.call(result, 'feed')) {
-        alert = result.feed.entry.map((e) => e.summary).join('\n<br>\n');
-      } else {
-        alert = '';
-      }
-    });
-  return '<h2>Hourly Weather</h2>\n' +
+  parser.parseString(xhr.responseText, (e, result) => {
+    if (e || !result) {
+      console.log("Alert response issue");
+      console.log(e);
+      alert = "";
+    } else if (Object.prototype.hasOwnProperty.call(result, "feed")) {
+      alert = result.feed.entry.map((e) => e.summary).join("\n<br>\n");
+    } else {
+      alert = "";
+    }
+  });
+  return (
+    "<h2>Hourly Weather</h2>\n" +
     byTime
       .slice(0, weatherCfg.hours)
-      .map((hr) =>
-        `<div class="${sunClass(sun, hr.time, 'temp-bar')}" ` +
-        `style="height: ${hr.temperature - min + 50}px; ` +
-        `margin-top: ${max - hr.temperature}px;"` +
-        `title="${hr.time.toTimeString()}\n${hr.temperature}°F ` +
-        `(${typeof(hr.windChill) === 'number' ? hr.windChill : 0}°F)\n` +
-        `${hr.windSustained}mph ` +
-        (isNaN(hr.windGust) ? '' : `(${Number(hr.windGust)}) `) +
-        `${hr.windDirection}° ${dirArrow(hr.windDirection)}\n` +
-        `UV Index: ${hr.uvi}\n` +
-        (wxCondition(hr.condition) ? `${wxCondition(hr.condition)}` : '') +
-        (hr.rain || hr.snow ? ' &mdash; ' : '') +
-        (hr.rain ? `💧 ${hr.rain['1h']}mm ` : '') +
-        (hr.snow ? `❄ ${hr.snow['1h']}mm` : '') +
-        (isNaN(hr.qpf) ? '' : `&mdash; ${Number(hr.qpf)}in QPF\n`) +
-        '" ' +
-        `onMouseEnter="let wx=document.getElementById('wx-cond');`+
-        `wx.innerHTML=event.target.title.replace(/\\n/g, '<br>');"` +
-        `onMouseLeave="document.getElementById('wx-cond').innerHTML=''">` +
-       `${getWeatherEmoji(hr, sun)}</div>`
+      .map(
+        (hr) =>
+          `<div class="${sunClass(sun, hr.time, "temp-bar")}" ` +
+          `style="height: ${hr.temperature - min + 50}px; ` +
+          `margin-top: ${max - hr.temperature}px;"` +
+          `title="${hr.time.toTimeString()}\n${hr.temperature}°F ` +
+          `(${typeof hr.windChill === "number" ? hr.windChill : 0}°F)\n` +
+          `${hr.windSustained}mph ` +
+          (isNaN(hr.windGust) ? "" : `(${Number(hr.windGust)}) `) +
+          `${hr.windDirection}° ${dirArrow(hr.windDirection)}\n` +
+          `UV Index: ${hr.uvi}\n` +
+          (wxCondition(hr.condition) ? `${wxCondition(hr.condition)}` : "") +
+          (hr.rain || hr.snow ? " &mdash; " : "") +
+          (hr.rain ? `💧 ${hr.rain["1h"]}mm ` : "") +
+          (hr.snow ? `❄ ${hr.snow["1h"]}mm` : "") +
+          (isNaN(hr.qpf) ? "" : `&mdash; ${Number(hr.qpf)}in QPF\n`) +
+          '" ' +
+          `onMouseEnter="let wx=document.getElementById('wx-cond');` +
+          `wx.innerHTML=event.target.title.replace(/\\n/g, '<br>');"` +
+          `onMouseLeave="document.getElementById('wx-cond').innerHTML=''">` +
+          `${getWeatherEmoji(hr, sun)}</div>`,
       )
-      .join('\n') +
-    `\n<div>${Math.round(rainTotal/0.254)/100}in 💧 &mdash; ` +
-    `${Math.round(snowTotal/0.254)/100}in ❄` +
-    ` &mdash; ${Math.round(qpfTotal*1000)/1000}in QPF</div>` +
-    `\n<div id="wx-cond"></div>\n<div>${alert}</div>`;
+      .join("\n") +
+    `\n<div>${Math.round(rainTotal / 0.254) / 100}in 💧 &mdash; ` +
+    `${Math.round(snowTotal / 0.254) / 100}in ❄` +
+    ` &mdash; ${Math.round(qpfTotal * 1000) / 1000}in QPF</div>` +
+    `\n<div id="wx-cond"></div>\n<div>${alert}</div>`
+  );
 }
 
 function airQuality(aqiKey, weatherCfg) {
