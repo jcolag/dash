@@ -648,30 +648,32 @@ function weather(weatherCfg) {
 }
 
 function airQuality(aqiKey, weatherCfg) {
-  const warn = ['good', 'mod', 'usg', 'unhealthy', 'very', 'hazard'];
-  const aqiUrl = 'https://www.airnowapi.org/aq/forecast/latLong/?' +
+  const warn = ["good", "mod", "usg", "unhealthy", "very", "hazard"];
+  const aqiUrl =
+    "https://www.airnowapi.org/aq/forecast/latLong/?" +
     `format=application/json&latitude=${weatherCfg.lat}&` +
     `longitude=${weatherCfg.lon}&distance=25&API_KEY=${aqiKey}`;
   const xhr = new XMLHttpRequest();
-  const results = ['<h2>Air Quality</h2>'];
+  const results = ["<h2>Air Quality</h2>"];
 
-  xhr.open('GET', aqiUrl, false);
+  xhr.open("GET", aqiUrl, false);
   xhr.send(null);
   aqi = JSON.parse(xhr.responseText);
   aqi.forEach((i) => {
-    let html = `<p>${i.DateForecast.trim()}: ` +
+    let html =
+      `<p>${i.DateForecast.trim()}: ` +
       `<span class="${warn[i.Category.Number - 1]}` +
-      `${i.ActionDay ? ' action' : ''}">${i.AQI}, ` +
+      `${i.ActionDay ? " action" : ""}">${i.AQI}, ` +
       `${i.Category.Name} (${i.ParameterName})</span>`;
 
     if (i.Discussion.length > 0) {
       html += `, ${i.Discussion}`;
     }
 
-    html += '</p>';
+    html += "</p>";
     results.push(html);
   });
-  return results.join('');
+  return results.join("");
 }
 
 function openDatabase(database) {
