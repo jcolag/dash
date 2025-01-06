@@ -681,26 +681,26 @@ function openDatabase(database) {
 
   try {
     db = new sqlite3(database, { verbose: null });
-    db.prepare('SELECT COUNT(*) FROM cal_alarms');
-  } catch(_) {
+    db.prepare("SELECT COUNT(*) FROM cal_alarms");
+  } catch (_) {
     const base = path.basename(database);
     const temp = path.join(os.tmpdir(), base);
 
     fs.copyFileSync(database, temp);
     db = new sqlite3(temp, { verbose: null });
-    db.prepare('SELECT COUNT(*) FROM cal_alarms');
+    db.prepare("SELECT COUNT(*) FROM cal_alarms");
   }
-  
+
   return db;
 }
 
 function wxCondition(condition) {
-  if (!Object.prototype.hasOwnProperty.call(condition, 'value')) {
+  if (!Object.prototype.hasOwnProperty.call(condition, "value")) {
     return null;
   }
 
-  const c = condition.value[0]['$'];
-  let result = c['weather-type'];
+  const c = condition.value[0]["$"];
+  let result = c["weather-type"];
 
   if (c.coverage) {
     result = `${result} (${c.coverage})`;
