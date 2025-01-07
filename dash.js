@@ -753,29 +753,30 @@ function dirArrow(angle) {
 function pataphysicalCalendar(date) {
   const now = Date.now();
   const months = [
-    'Absolu',
-    'Haha',
-    'As',
-    'Sable',
-    'Décervelage',
-    'Gueules',
-    'Pédale',
-    'Clinamen',
-    'Palotin',
-    'Merdre',
-    'Gidouille',
-    'Tatane',
-    'Phalle',
+    "Absolu",
+    "Haha",
+    "As",
+    "Sable",
+    "Décervelage",
+    "Gueules",
+    "Pédale",
+    "Clinamen",
+    "Palotin",
+    "Merdre",
+    "Gidouille",
+    "Tatane",
+    "Phalle",
   ];
   const today = new Date(now);
   const doy = Math.floor(
-    (date - new Date(today.getFullYear(), 0, 0)) / 86400000
+    (date - new Date(today.getFullYear(), 0, 0)) / 86400000,
   );
   const dSep8 = Math.floor(
-    (new Date(today.getFullYear(), 8, 8) - new Date(today.getFullYear(), 0, 0))
-    / 86400000
+    (new Date(today.getFullYear(), 8, 8) -
+      new Date(today.getFullYear(), 0, 0)) /
+      86400000,
   );
-  const pataYear = (today.getFullYear() - 1872) + (doy >= dSep8 ? 1 : 0);
+  const pataYear = today.getFullYear() - 1872 + (doy >= dSep8 ? 1 : 0);
   let pataMonth = 0;
   let pataDay = doy;
 
