@@ -827,23 +827,24 @@ function getWeatherEmoji(weather, sun) {
 }
 
 function weatherTypeEmoji(condition) {
-  switch (condition['weather-type']) {
-    case 'snow':
-      return '❄<br>';
-    case 'rain':
-      return '💧<br>';
-    case 'freezing rain':
-      return '🧊<br>';
+  switch (condition["weather-type"]) {
+    case "snow":
+      return "❄<br>";
+    case "rain":
+      return "💧<br>";
+    case "freezing rain":
+      return "🧊<br>";
     default:
       if (Array.isArray(condition)) {
-        return weatherTypeEmoji(condition[0]['$']);
+        return weatherTypeEmoji(condition[0]["$"]);
       } else {
+        console.log("Unknown weather condition");
         console.log(condition);
       }
       break;
   }
-  
-  return '';
+
+  return "";
 }
 
 function biorhythm(bdayText) {
