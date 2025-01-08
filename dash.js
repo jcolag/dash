@@ -802,26 +802,25 @@ function pataphysicalCalendar(date) {
 }
 
 function getWeatherEmoji(weather, sun) {
-  let emoji = '';
-  let lightOut = (
+  let emoji = "";
+  let lightOut =
     weather.time >= sun.sunrise.setDate(weather.time.getDate()) &&
-    weather.time <= sun.sunset.setDate(weather.time.getDate())
-  );
+    weather.time <= sun.sunset.setDate(weather.time.getDate());
 
-  if (Object.prototype.hasOwnProperty.call(weather.condition, 'value')) {
+  if (Object.prototype.hasOwnProperty.call(weather.condition, "value")) {
     emoji += weatherTypeEmoji(weather.condition.value);
   }
-  
+
   if (weather.clouds > 80) {
-    emoji += '☁<br>';
+    emoji += "☁<br>";
   } else if (weather.clouds > 60) {
-    emoji += '🌥<br>';
+    emoji += "🌥<br>";
   } else if (weather.clouds > 40) {
-    emoji += '⛅<br>';
+    emoji += "⛅<br>";
   } else if (weather.clouds > 20) {
-    emoji += '🌤<br>';
+    emoji += "🌤<br>";
   } else {
-    emoji += lightOut ? '☀<br>' : '🌜<br>';
+    emoji += lightOut ? "☀<br>" : "🌜<br>";
   }
 
   return emoji;
