@@ -852,14 +852,14 @@ function biorhythm(bdayText) {
   const now = Date.now();
 
   if (isNaN(bday)) {
-    console.log('Birthday is unreadable.');
+    console.log("Birthday is unreadable.");
     process.exit(-2);
   }
 
   const days = DaysBetween(bday, now);
-  const phys = calculateBio('p', days);
-  const emot = calculateBio('e', days);
-  const intl = calculateBio('i', days);
+  const phys = calculateBio("p", days);
+  const emot = calculateBio("e", days);
+  const intl = calculateBio("i", days);
 
   return `${phys} ${emot} ${intl}`;
 }
