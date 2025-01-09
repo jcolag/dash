@@ -884,25 +884,26 @@ function DaysBetween(startDate, endDate) {
 
 function calculateBio(type, days) {
   const rhythms = {
-    'E': {
-      'cycle': 28,
-      'icon': '💓',
+    E: {
+      cycle: 28,
+      icon: "💓",
     },
-    'I': {
-      'cycle': 33,
-      'icon': '🧠',
+    I: {
+      cycle: 33,
+      icon: "🧠",
     },
-    'P': {
-      'cycle': 23,
-      'icon': '💪',
+    P: {
+      cycle: 23,
+      icon: "💪",
     },
-  }
+  };
 
   const rhythm = rhythms[type.toUpperCase()];
-  const value = Math.sin(2 * Math.PI * days / rhythm['cycle']).toFixed(2);
-  const dir = Math.cos(2 * Math.PI * days / rhythm['cycle']) < 0 ? '⬇' : '⬆';
-  const sign = value > 0 ? '+' : '';
-  return `${rhythm['icon']}${sign}${value}${dir}`;
+  const value = Math.sin((2 * Math.PI * days) / rhythm["cycle"]).toFixed(2);
+  const dir =
+    Math.cos((2 * Math.PI * days) / rhythm["cycle"]) < 0 ? "⬇" : "⬆";
+  const sign = value > 0 ? "+" : "";
+  return `${rhythm["icon"]}${sign}${value}${dir}`;
 }
 
 function collateViewing(journal, colors) {
