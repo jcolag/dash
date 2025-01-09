@@ -871,12 +871,12 @@ function DaysBetween(startDate, endDate) {
   const start = Date.UTC(
     endDate.getFullYear(),
     endDate.getMonth(),
-    endDate.getDate()
+    endDate.getDate(),
   );
   const end = Date.UTC(
     startDate.getFullYear(),
     startDate.getMonth(),
-    startDate.getDate()
+    startDate.getDate(),
   );
 
   return (start - end) / oneDay;
