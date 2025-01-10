@@ -921,18 +921,12 @@ function collateViewing(journal, colors) {
     };
   });
   fs.readdirSync(journal.location).forEach((file) => {
-    if (file.indexOf('.json') < 0 || file.indexOf('-') < 0) {
+    if (file.indexOf(".json") < 0 || file.indexOf("-") < 0) {
       return;
     }
 
-    files.push(file.split('.')[0]);
-    months.push(
-      JSON.parse(
-        fs.readFileSync(
-          path.join(journal.location, file)
-        )
-      )
-    );
+    files.push(file.split(".")[0]);
+    months.push(JSON.parse(fs.readFileSync(path.join(journal.location, file))));
 
     months[months.length - 1].forEach((s) => {
       if (!Object.prototype.hasOwnProperty.call(result, s.service)) {
