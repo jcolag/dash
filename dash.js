@@ -975,21 +975,20 @@ function updateViewing(journal) {
   let yy = now.getYear() + 1900;
   let mm = now.getMonth() + 1;
 
-  prefix = `${yy}-${('0' + mm).slice(-2)}-`;
-  suffix = '.md';
+  prefix = `${yy}-${("0" + mm).slice(-2)}-`;
+  suffix = ".md";
 
   fs.readdirSync(journal.location).forEach((file) => {
     if (file.indexOf(prefix) < 0 || file.indexOf(suffix) < 0) {
       return;
     }
 
-    fs
-      .readFileSync(path.join(journal.location, file))
+    fs.readFileSync(path.join(journal.location, file))
       .toString()
-      .split('\n')
-      .filter((l) => l.indexOf('|**') === 0)
+      .split("\n")
+      .filter((l) => l.indexOf("|**") === 0)
       .forEach((l) => {
-        const columns = l.split('|');
+        const columns = l.split("|");
 
         rows.push(columns);
         if (services.indexOf(columns[2]) < 0) {
