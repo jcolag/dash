@@ -997,35 +997,41 @@ function updateViewing(journal) {
       });
   });
 
-  services.filter((s) => s.length > 0).sort().forEach((service) => {
-    const thoughts = [];
-    const emoji = [];
-    let count = 0;
+  services
+    .filter((s) => s.length > 0)
+    .sort()
+    .forEach((service) => {
+      const thoughts = [];
+      const emoji = [];
+      let count = 0;
 
-    rows
-      .filter((r) => r[2] === service)
-      .forEach((show) => {
-        thoughts.push(show[4]);
-        emoji.push(show[3]);
-        emoji.push(show[5]);
-        count += 1;
+      rows
+        .filter((r) => r[2] === service)
+        .forEach((show) => {
+          thoughts.push(show[4]);
+          emoji.push(show[3]);
+          emoji.push(show[5]);
+          count += 1;
+        });
+      report.push({
+        service: service,
+        shows: count,
+        emoji:
+          Math.round(sent.analyze(emoji.join(" ")).comparative * 1000) / 1000,
+        opinion:
+          Math.round(sent.analyze(thoughts.join(" ")).comparative * 1000) /
+          1000,
       });
-    report.push({
-      service: service,
-      shows: count,
-      emoji: Math.round(sent.analyze(emoji.join(' ')).comparative * 1000) / 1000,
-      opinion: Math.round(sent.analyze(thoughts.join(' ')).comparative * 1000) / 1000,
     });
-  });
 
   fs.writeFileSync(
-    path.join(journal.location, `${yy}-${('0' + mm).slice(-2)}.json`),
-    JSON.stringify(report, ' ', 2)
+    path.join(journal.location, `${yy}-${("0" + mm).slice(-2)}.json`),
+    JSON.stringify(report, " ", 2),
   );
 }
 
 function chartShows(journal, months, watching, colors) {
-  const id = 'showCountChart';
+  const id = "showCountChart";
   const result = [];
   const shows = Object.keys(watching).map((s) => {
     return {
