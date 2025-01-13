@@ -1040,15 +1040,15 @@ function chartShows(journal, months, watching, colors) {
     };
   });
 
-  result.push('<h2>Shows Watched</h2>');
+  result.push("<h2>Shows Watched</h2>");
   result.push(`<div style="height: 400px"><canvas id="${id}"></canvas></div>`);
   result.push(chartJsScript(id, months, shows, colors));
 
-  return result.join('');
+  return result.join("");
 }
 
 function chartEmoji(journal, months, watching, colors) {
-  const id = 'showEmojiChart';
+  const id = "showEmojiChart";
   const result = [];
   const shows = Object.keys(watching).map((s) => {
     return {
