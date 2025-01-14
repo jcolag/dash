@@ -1074,51 +1074,57 @@ function chartOpinion(journal, months, watching, colors) {
     };
   });
 
-  result.push('<h2>Media Opinion Sentiment</h2>');
+  result.push("<h2>Media Opinion Sentiment</h2>");
   result.push(`<div style="height: 400px"><canvas id="${id}"></canvas></div>`);
   result.push(chartJsScript(id, months, shows, colors));
 
-  return result.join('');
+  return result.join("");
 }
 
 function listTvShows() {
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
   const url = `https://api.tvmaze.com/schedule?country=US&date=${today}`;
   const webUrl = `https://api.tvmaze.com/schedule/web?country=US&date=${today}`;
   const xhr = new XMLHttpRequest();
-  let webList;
+  let showList, webShowList;
 
-  xhr.open('GET', url, false);
+  xhr.open("GET", url, false);
   xhr.send(null);
-  showList = JSON
-    .parse(xhr.responseText)
-    .filter((s) => s.show.type === 'Scripted')
+  showList = JSON.parse(xhr.responseText)
+    .filter((s) => s.show.type === "Scripted")
     .filter((s) => s.show.schedule.days.length < 3);
-  xhr.open('GET', webUrl, false);
+  xhr.open("GET", webUrl, false);
   xhr.send(null);
-  webShowList = JSON
-    .parse(xhr.responseText)
-    .filter((s) => s._embedded.show.type === 'Scripted')
+  webShowList = JSON.parse(xhr.responseText)
+    .filter((s) => s._embedded.show.type === "Scripted")
     .filter((s) => s._embedded.show.schedule.days.length < 3);
 
-  return '<h2>Television</h2><ul>' +
+  if (showList.length + webShowList.length === 0) {
+    return '';
+  }
+
+  return (
+    "<h2>Television</h2><ul>" +
     showList
-      .map((s) =>
-        `<li><details><b>${s.name}</b>: ${s.summary}<summary>` +
-        `${s.show.name} S${s.season}E${s.number} (${s.show.network?.name})` +
-        '</summary></details></li>'
+      .map(
+        (s) =>
+          `<li><details><b>${s.name}</b>: ${s.summary}<summary>` +
+          `${s.show.name} S${s.season}E${s.number} (${s.show.network?.name})` +
+          "</summary></details></li>",
       )
-      .join('') +
+      .join("") +
     webShowList
-      .map((s) =>
-        '<li><details>' +
-        `<b>${s.name}</b>: ${s.summary}` +
-        '<summary>' +
-        `${s._embedded.show.name} S${s.season}E${s.number} (${s._embedded.show.webChannel.name})` +
-        '</summary></details></li>'
+      .map(
+        (s) =>
+          "<li><details>" +
+          `<b>${s.name}</b>: ${s.summary}` +
+          "<summary>" +
+          `${s._embedded.show.name} S${s.season}E${s.number} (${s._embedded.show.webChannel.name})` +
+          "</summary></details></li>",
       )
-      .join('') +
-    '</ul>';
+      .join("") +
+    "</ul>"
+  );
 }
 
 function aurora() {
