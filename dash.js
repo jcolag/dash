@@ -1057,15 +1057,15 @@ function chartEmoji(journal, months, watching, colors) {
     };
   });
 
-  result.push('<h2>Media Emoji Sentiment</h2>');
+  result.push("<h2>Media Emoji Sentiment</h2>");
   result.push(`<div style="height: 350px"><canvas id="${id}"></canvas></div>`);
   result.push(chartJsScript(id, months, shows, colors));
 
-  return result.join('');
+  return result.join("");
 }
 
 function chartOpinion(journal, months, watching, colors) {
-  const id = 'showOpinionChart';
+  const id = "showOpinionChart";
   const result = [];
   const shows = Object.keys(watching).map((s) => {
     return {
