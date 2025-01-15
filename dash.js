@@ -1200,34 +1200,35 @@ function chartStepsByDay(ped, steps) {
     },
     options: {
       legend: {
-        position: 'right'
+        position: "right",
       },
       maintainAspectRatio: false,
       title: {
-        display: false
-      }
-    }
+        display: false,
+      },
+    },
   };
-  let script = '<script>window.addEventListener("load", () => {' +
+  let script =
+    '<script>window.addEventListener("load", () => {' +
     `const ctx = document.getElementById('${id}');` +
-    'new Chart(ctx, ';
+    "new Chart(ctx, ";
 
   script += JSON.stringify(data);
-  script += ');});</script>';
+  script += ");});</script>";
   result.push(script);
-  return result.join('');
+  return result.join("");
 }
 
 function chartStepsByHour(ped, steps) {
-  const id = 'hour-steps';
+  const id = "hour-steps";
   const result = [
     `<div style="height: 300px"><canvas id="${id}"></canvas></div>`,
   ];
   const data = {
-    type: 'bar',
+    type: "bar",
     data: {
       datasets: [],
-      labels: Array.from({length:24}, (v, i) => 0+i)
+      labels: Array.from({ length: 24 }, (v, i) => 0 + i),
     },
     options: {
       legend: {
