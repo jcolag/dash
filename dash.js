@@ -1143,31 +1143,32 @@ function chartJsScript(id, labels, info, colors) {
         data: s.data,
         label: s.name,
       };
-  });
+    });
   const data = {
-    type: 'line',
+    type: "line",
     data: {
       datasets: services,
-      labels: labels
+      labels: labels,
     },
     options: {
       plugins: {
         legend: {
-          position: 'right'
-        }
+          position: "right",
+        },
       },
       maintainAspectRatio: false,
       title: {
-        display: false
-      }
-    }
+        display: false,
+      },
+    },
   };
-  let script = '<script>window.addEventListener("load", () => {' +
+  let script =
+    '<script>window.addEventListener("load", () => {' +
     `const ctx = document.getElementById('${id}');` +
-    'new Chart(ctx, ';
+    "new Chart(ctx, ";
 
   script += JSON.stringify(data);
-  script += ');});</script>';
+  script += ");});</script>";
   return script;
 }
 
