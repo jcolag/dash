@@ -1173,14 +1173,15 @@ function chartJsScript(id, labels, info, colors) {
 }
 
 function readStepCounts(ped) {
-  return fs.readFileSync(ped.location, 'utf-8')
-    .split('\n')
+  return fs
+    .readFileSync(ped.location, "utf-8")
+    .split("\n")
     .slice(ped.skipLines)
-    .map((l) => l.split(','));
+    .map((l) => l.split(","));
 }
 
 function chartStepsByDay(ped, steps) {
-  const id = 'day-steps';
+  const id = "day-steps";
   const result = [
     `<div style="height: 300px"><canvas id="${id}"></canvas></div>`,
   ];
