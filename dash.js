@@ -1259,10 +1259,10 @@ function chartStepsByHour(ped, steps) {
 
   data.data.datasets.push({
     data: counts,
-    label: 'Hourly Steps'
+    label: "Hourly Steps",
   });
   script += JSON.stringify(data);
-  script += ');});</script>';
+  script += ");});</script>";
   result.push(script);
-  return result.join('');
+  return result.join("");
 }
