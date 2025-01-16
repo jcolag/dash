@@ -1232,26 +1232,28 @@ function chartStepsByHour(ped, steps) {
     },
     options: {
       legend: {
-        position: 'right'
+        position: "right",
       },
       maintainAspectRatio: false,
       title: {
-        display: false
-      }
-    }
+        display: false,
+      },
+    },
   };
   const counts = [];
-  let script = '<script>window.addEventListener("load", () => {' +
+  let script =
+    '<script>window.addEventListener("load", () => {' +
     `const ctx = document.getElementById('${id}');` +
-    'new Chart(ctx, ';
+    "new Chart(ctx, ";
 
   for (let i = 1; i <= 24; i++) {
-    counts.push(steps
-      .reverse()
-      .slice(0, ped.maxDays)
-      .map((d) => d[i])
-      .reduce((a, b) =>  Number(a) + Number(b), 0) /
-      (steps.length > ped.maxDays ? ped.maxDays : steps.length)
+    counts.push(
+      steps
+        .reverse()
+        .slice(0, ped.maxDays)
+        .map((d) => d[i])
+        .reduce((a, b) => Number(a) + Number(b), 0) /
+        (steps.length > ped.maxDays ? ped.maxDays : steps.length),
     );
   }
 
