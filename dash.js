@@ -1186,17 +1186,43 @@ function chartStepsByDay(ped, steps) {
     `<div style="height: 300px"><canvas id="${id}"></canvas></div>`,
   ];
   const data = {
-    type: 'bar',
     data: {
-      datasets: [{
-        data: steps
-          .reverse()
-          .slice(0, ped.maxDays)
-          .map((d) => d.slice(1, 25).reduce((a, b) => Number(a) + Number(b), 0))
-          .reverse(),
-        label: 'Daily Steps'
-      }],
-      labels: steps.reverse().slice(0, ped.maxDays).map((d) => d[0])
+      datasets: [
+        {
+          data: steps
+            .reverse()
+            .slice(0, ped.maxDays)
+            .map((d) =>
+              d.slice(1, 25).reduce((a, b) => Number(a) + Number(b), 0),
+            )
+            .reverse(),
+          label: "Daily Steps",
+          type: "bar",
+        },
+        {
+          data: steps
+            .slice(0, ped.maxDays)
+            .map((d) =>
+              (
+                d.slice(1, 25).reduce((a, b) => Number(a) + Number(b), 0) *
+                ped.stepLength / // step length in feet
+                5280 // feet per mile
+              ) /
+              (
+                d.slice(25).reduce((a, b) => Number(a) + Number(b), 0) /
+                1000 / // milliseconds per second
+                3600 // seconds per hour
+              ) * 10000, // temporary scale to match steps
+            )
+            .reverse(),
+          label: "Speed",
+          type: "line",
+        }
+      ],
+      labels: steps
+        .slice(0, ped.maxDays)
+        .map((d) => d[0])
+        .reverse(),
     },
     options: {
       legend: {
