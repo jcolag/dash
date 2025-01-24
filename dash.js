@@ -484,6 +484,12 @@ function calendarInfo(cal) {
     }))
     .filter((e) => e.between.length > 0);
 
+  if (now.getDate() >= new Date(now.getFullYear(), now.getMonth() + 1, -7).getDate()) {
+    events.push({
+      name: 'Check for Hoopla Bonus borrows'
+    });
+  }
+
   if (events.length === 0) {
     return null;
   }
