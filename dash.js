@@ -27,7 +27,7 @@ const elements = [
   listTvShows(),
   holidayList(),
   notes(config.notes.file),
-  voaNewscast(),
+  // voaNewscast(),
   blogInfo(config.blogInfo),
   weather(config.weather),
   airQuality(config.airNow, config.weather),
