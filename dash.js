@@ -1125,7 +1125,7 @@ function listTvShows() {
           "<li><details>" +
           `<b>${s.name}</b>: ${s.summary}` +
           "<summary>" +
-          `${s._embedded.show.name} S${s.season}E${s.number} (${s._embedded.show.webChannel.name})` +
+          `${s._embedded.show.name} S${s.season}E${s.number} (${s._embedded.show.webChannel?.name})` +
           "</summary></details></li>",
       )
       .join("") +
